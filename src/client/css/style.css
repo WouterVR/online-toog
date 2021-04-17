@@ -1,0 +1,31 @@
+:root{
+    --primary: #000000;
+    --secondary: #efeb1d;
+    --tertairy: #a14c04;
+    --quartairy: #5aa0d5;
+    --background: #ffffff;
+    --dark: #333;
+    --light: #fff;
+    --text_shadow: 0 0 3px rgba(104, 104, 104, 0.8);
+    --box_shadow: 0 1px 10px rgba(104, 104, 104, 0.8);
+    font-family: "Roboto Light", sans-serif;
+}
+
+header {
+    background: var(--background);
+    text-align: center;
+    padding: 10px;
+    max-width: fit-content;
+}
+
+.button {
+    background: var(--tertairy);
+    color: var(--light);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: 0;
+}
+
+#logo {
+    max-width: 100px;
+}
