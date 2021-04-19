@@ -45,7 +45,7 @@ input[type=text], select {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    max-width: 300px;
+    max-width: 500px;
     max-height: 110px;
 }
 

@@ -6,28 +6,23 @@ const port = process.env.PORT || 3000;
 
 // use createReadStream instead to save memory
 const fs = require('fs');
-const index = fs.readFileSync('../client/index.html');
-const java = fs.readFileSync('../client/js/index.js');
-const layout = fs.readFileSync('../client/js/layout.js');
-const style = fs.readFileSync('../client/css/style.css');
-const faviconPng = fs.readFileSync(path.join(__dirname, 'favicon', 'favicon2.png'));
+const klantHTML = fs.readFileSync('src/client/klant/klant.html');
+const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html')
+const klantJS = fs.readFileSync('src/client/js/klant.js');
+const style = fs.readFileSync('src/client/css/style.css');
+const faviconPng = fs.readFileSync('src/client/img/logo.png');
 
 const server = http.createServer((req, res) => {
     console.log("New http request with url: " + req.url);
     res.statusCode = 200
     if (req.url === "/") {
         res.setHeader("Content-Type", "text/html");
-        res.write(index);
+        res.write(klantHTML);
         res.end();
     }
-    if (req.url === "/js/index.js") {
+    if (req.url === "/js/klant.js") {
         res.setHeader("Content-Type", "text/javascript");
-        res.write(java);
-        res.end();
-    }
-    if (req.url === "/js/layout.js") {
-        res.setHeader("Content-Type", "text/javascript");
-        res.write(layout);
+        res.write(klantJS);
         res.end();
     }
     if (req.url === "/css/style.css") {
@@ -35,11 +30,17 @@ const server = http.createServer((req, res) => {
         res.write(style);
         res.end();
     }
-    if (req.url === "/favicon.ico") {
+    if (req.url === "/favicon.ico" || req.url === "/img/logo.png") {
         res.setHeader("Content-Type", "image/png");
         res.write(faviconPng);
         res.end();
     }
+    if (req.url === "/html/orderDetails") {
+        res.setHeader("Content-Type", "text/html");
+        res.write(orderDetailsHTML);
+        res.end();
+    }
+    /*
     if (req.url === "/test") {
         res.setHeader("Content-Type", "application/json");
         let data = {
@@ -82,6 +83,8 @@ const server = http.createServer((req, res) => {
             res.end();
         })
     }
+
+     */
 })
 
 server.listen(port, () => {
