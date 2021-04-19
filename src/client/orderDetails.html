@@ -10,49 +10,36 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/c85d62c8b6.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 </head>
 <body>
-
 <header>
     <div class="title-container">
-       <h2>Online Toog</h2>
         <img id="logo" alt="JHdeBem_logo" src="src/logo.png">
     </div>
 </header>
 
 <main>
+    <form class="form-tableNumber-remark">
+        <label for="tableNumber">Tafel nummer:</label>
+        <input type="number" id="tableNumber" placeholder="1">
+        <input type="text" id="remark" placeholder="Opmerking">
+    </form>
+    <h3 id="totalPrice">TotalPrice</h3>
     <ul class="item-list">
         <li>
             <div class="item-container">
                 <div class="item-name-price">
-                    <p class="item-name">ItemName</p>
+                    <span>times</span> <span>x</span>
+                    <span class="item-name">ItemName</span>
                     <div class="item-€-price">
-                        <span>€</span>
+                        <span>times</span>
+                        <span>x €</span>
                         <span>price</span>
                     </div>
                 </div>
                 <div class="item-amount-buttons">
-                    <span id="amountSelected">0</span>
-                    <span class="mdc-icon-button material-icons">add_circle</span>
-                    <span class="mdc-icon-button material-icons">remove_circle</span>
-                </div>
-
-            </div>
-        </li>
-        <li>
-            <div class="item-container">
-                <div class="item-name-price">
-                    <p class="item-name">Primus</p>
-                    <div class="item-€-price">
-                        <span>€</span>
-                        <span>price</span>
-                    </div>
-                </div>
-                <div class="item-amount-buttons">
-                    <span id="amountSelected">0</span>
-                    <span class="mdc-icon-button material-icons">add_circle</span>
-                    <span class="mdc-icon-button material-icons">remove_circle</span>
+                    <span id="totalPricePerItem">0</span>
+                    <span> euro</span>
                 </div>
 
             </div>
@@ -61,15 +48,13 @@
 </main>
 
 <footer>
-    <div class="total">
-            <span>Totaal: €</span>
-            <span id="total">99</span>
-    </div>
+    <button class="mdc-button mdc-button--outlined">
+        <span class="mdc-button__label">TERUG</span>
+    </button>
     <div class="space-between-footer"></div>
     <button class="mdc-button mdc-button--raised">
-        <span class="mdc-button__label">VERDER</span>
+        <span class="mdc-button__label">BETALEN</span>
     </button>
 </footer>
-
 </body>
 </html>

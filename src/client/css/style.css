@@ -25,9 +25,28 @@ body{
 }
 
 main{
-    align-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    -webkit-align-items: center;
+    min-height: 100vh;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-tableNumber-remark{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 300px;
+    max-height: 110px;
 }
 
 .item-list{
@@ -51,14 +70,17 @@ main{
     flex-grow: 5;
     margin-right: 100px;
 }
+
 .item-name {
     width: 75px;
+    margin-bottom: 5px;
 }
-
-#amountSelected {
-    text-align: center;
-    align-self: center;
-    align-items: center;
+span {
+    padding: 2px;
+}
+.item-€-price {
+    font-size: 80%;
+    color: #a1a1a1;
 }
 
 .item-amount-buttons{
@@ -75,10 +97,8 @@ main{
     text-decoration: none;
     border: 0;
 }
-.mdc-button--raised {
+.mdc-button--raised .mdc-button--outlined{
     background-color: black;
-    color: var(--tertairy);
-    background: var(--tertairy);
 }
 
 footer {
