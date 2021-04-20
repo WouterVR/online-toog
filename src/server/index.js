@@ -40,6 +40,13 @@ const server = http.createServer((req, res) => {
         res.write(orderDetailsHTML);
         res.end();
     }
+    if (req.url === "/prepareOrder") {
+        req.on('data', function (data){
+            console.log('new order:',JSON.parse(data));
+            res.write(JSON.stringify(data));
+            res.end();
+        })
+    }
     /*
     if (req.url === "/test") {
         res.setHeader("Content-Type", "application/json");
