@@ -151,15 +151,11 @@ function setOrderDetailsView(){
 
         let itemContainer = document.createElement('div');
         itemContainer.setAttribute('class', "item-container");
-        let itemNamePrice = document.createElement('div');
-        itemNamePrice.setAttribute('class', "item-name-price");
-            let times = document.createElement('span');
-            times.append(document.createTextNode(order[menuItem].amount));
-            let x = document.createElement('span');
-            x.append(document.createTextNode('x'));
-            let itemName = document.createElement('span');
-            itemName.append(document.createTextNode(order[menuItem].name));
-            itemName.setAttribute('class','item-name');
+        let itemTimesAndName = document.createElement('div');
+        itemTimesAndName.setAttribute('class', "item-name-price");
+            let itemName = document.createElement('p');
+            itemName.append(document.createTextNode(order[menuItem].amount + ' x ' +order[menuItem].name));
+            itemName.setAttribute('class','item-times-name');
             let itemEuroPrice = document.createElement('div');
             itemEuroPrice.setAttribute('class','item-€-price')
                 let times2 = document.createElement('span');
@@ -169,7 +165,7 @@ function setOrderDetailsView(){
                 let itemPrice = document.createElement('span');
                 itemPrice.append(document.createTextNode(order[menuItem].pricePerItem+ ' euro'));
             itemEuroPrice.append(times2, x2, itemPrice);
-        itemNamePrice.append(times,x,itemName,itemEuroPrice);
+        itemTimesAndName.append(itemName,itemEuroPrice);
 
         let itemAmountButtons = document.createElement('div');
         itemAmountButtons.setAttribute('class', 'item-amount-buttons');
@@ -179,7 +175,7 @@ function setOrderDetailsView(){
             euro.append(document.createTextNode('euro'));
         itemAmountButtons.append(totalPricePerItem, euro);
 
-        itemContainer.append(itemNamePrice, itemAmountButtons);
+        itemContainer.append(itemTimesAndName, itemAmountButtons);
 
         listItem.append(itemContainer);
 

@@ -75,6 +75,12 @@ input[type=text], select {
     width: 75px;
     margin-bottom: 5px;
 }
+
+.item-times-name {
+    width: 125px;
+    margin-bottom: 5px;
+}
+
 span {
     padding: 2px;
 }
