@@ -71,6 +71,37 @@ input[type=text], select {
     margin-right: 100px;
 }
 
+.payconiq-cash-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+}
+.logo-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#payconiq_logo{
+    max-width: 60%;
+    margin: auto;
+    height: auto;
+    width: auto\9; /* ie8 */
+
+}
+#cash_logo{
+    max-width: 60%;
+    margin: auto;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+
 .item-name {
     width: 75px;
     margin-bottom: 5px;

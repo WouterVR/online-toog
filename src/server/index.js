@@ -2,7 +2,7 @@ const http = require('http')
 let path = require('path')
 
 //const port = process.env.PORT //not working?
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // use createReadStream instead to save memory
 const fs = require('fs');
@@ -11,6 +11,8 @@ const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html')
 const klantJS = fs.readFileSync('src/client/js/klant.js');
 const style = fs.readFileSync('src/client/css/style.css');
 const faviconPng = fs.readFileSync('src/client/img/logo.png');
+const cash = fs.readFileSync('src/client/img/cash.png');
+const payconiq = fs.readFileSync('src/client/img/payconiq_by_Bancontact-logo-app-pos.png');
 
 const server = http.createServer((req, res) => {
     console.log("New http request with url: " + req.url);
@@ -33,6 +35,16 @@ const server = http.createServer((req, res) => {
     if (req.url === "/favicon.ico" || req.url === "/img/logo.png") {
         res.setHeader("Content-Type", "image/png");
         res.write(faviconPng);
+        res.end();
+    }
+    if (req.url === "/img/cash.png") {
+        res.setHeader("Content-Type", "image/png");
+        res.write(cash);
+        res.end();
+    }
+    if (req.url === "/img/payconiq_by_Bancontact-logo-app-pos.png") {
+        res.setHeader("Content-Type", "image/png");
+        res.write(payconiq);
         res.end();
     }
     if (req.url === "/html/orderDetails") {

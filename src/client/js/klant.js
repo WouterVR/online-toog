@@ -1,6 +1,8 @@
 let menu = [];
 let order = [];
 let totalPrice =0;
+let tableNumber = 0;
+let remark = ';'
 
 function pageLoad(){
     fillMenuAndView();
@@ -188,6 +190,58 @@ function setOrderDetailsView(){
     $('#footer').append(button1, spaceBetweenDiv,button2)
 }
 
+function setPaymentMethodView(){
+    let pcdiv = document.createElement('div')
+    pcdiv.setAttribute("class","payconiq-cash-div");
+    let h3 = document.createElement('h3');
+    h3.appendChild(document.createTextNode("Kies je betaalmethode:"));
+    let pdiv = document.createElement('div')
+    pdiv.setAttribute("class","logo-div");
+    let img = document.createElement('img');
+    img.setAttribute('id', 'payconiq_logo');
+    img.onclick = function () {payWithPayconiq();};
+    img.setAttribute('src', '../img/payconiq_by_Bancontact-logo-app-pos.png');
+    img.setAttribute('alt', 'payconiq_by_Bancontact.png');
+    pdiv.append(img)
+    let hr = document.createElement('hr');
+    hr.setAttribute('style','width: 80%');
+    let cdiv = document.createElement('div');
+    cdiv.setAttribute("class","logo-div");
+    let img2 = document.createElement('img');
+    img2.setAttribute('id', 'cash_logo');
+    img2.onclick = function () {payInCash();};
+    img2.setAttribute('src', '../img/cash.png');
+    img2.setAttribute('alt', 'cash.png');
+    cdiv.append(img2)
+    pcdiv.append(h3,pdiv,hr,cdiv);
+
+    $('#main').empty()
+    $('#main').append(pcdiv);
+    $('#footer').empty();
+}
+
+function orderReceivedView(){
+    let div = document.createElement('div')
+    div.setAttribute("class","order-received-div");
+    let h3 = document.createElement('h3');
+    h3.append(document.createTextNode('We hebben je bestelling goed ontvangen!'));
+    let span = document.createElement('span');
+    span.append(document.createTextNode('Klik '));
+    let a = document.createElement('a');
+    a.setAttribute('href','#');
+    a.onclick = function () {location.reload();};
+    a.append(document.createTextNode('hier'));
+    span.append(a)
+    span.append(document.createTextNode(' om een nieuwe bestelling te plaatsen.'))
+
+    div.append(h3, span);
+
+    $('#main').empty()
+    $('#main').append(div);
+    $('#footer').empty();
+}
+
+
 function updateTotalPrice(){
     document.getElementById('total').childNodes[0].nodeValue = totalPrice.toString();
 }
@@ -241,39 +295,14 @@ function continueButton(){
 }
 
 function payButton(){
-    let tableNumber = $('#tableNumber').val();
+    tableNumber = $('#tableNumber').val();
     if(tableNumber<= 0 || tableNumber >=10){
         alert('Gelieve een tafelnummer tussen 1 en 10 in te vulen.');
         return;
     }
-    let remark = $('#remark').val();
+    remark = $('#remark').val();
     console.log('table number: '+ tableNumber.toString() + ' and remark: '+remark);
-    //delete possible previous orderdetails and update with new data
-    for(let menuItemId in order){
-        if(order[menuItemId].payed !== undefined){
-            order[menuItemId] = null;
-        }
-    }
-    let orderDetails = {
-        payed: false,
-        tableNumber: tableNumber,
-        remark: remark,
-        paymentMethod: "cash", //TODO integrate different payment methods
-        finished: false,
-        timestamp:Date.now()
-    }
-    order.push(orderDetails)
-
-    let url = '/placeOrder';
-    $.post(url, JSON.stringify(order), function (data, status){
-        if(status === "success"){
-            console.log('http status response 200 OK');
-        }else{
-            console.log('Something went wrong with receiving the userlist');
-        }
-    });
-
-    alert('Betalen maar!');
+    setPaymentMethodView();
 }
 
 function backButton(){
@@ -284,4 +313,35 @@ function backButton(){
         amountOfItemText.childNodes[0].nodeValue= newValue.toString() //add one to the existing value
     }
     updateTotalPrice()
+}
+
+function payWithPayconiq(){
+    //TODO implement payconiq
+    alert('Paying with payconiq is not supported yet')
+}
+
+function payInCash(){
+    //Check if the last item is already some order details. In this case delete that information
+    if(order[order.length-1].payed !== undefined)  order.pop();
+
+    let orderDetails = {
+        payed: false,
+        tableNumber: tableNumber,
+        remark: remark,
+        paymentMethod: "cash",
+        finished: false,
+        timestamp:Date.now()
+    }
+    order.push(orderDetails)
+
+    let url = '/placeOrder';
+    $.post(url, JSON.stringify(order), function (data, status){
+        if(status === "success"){
+            console.log('Order placed successfully');
+            orderReceivedView()
+        }else{
+            console.log('Something went wrong with placing the order');
+        }
+    });
+
 }
