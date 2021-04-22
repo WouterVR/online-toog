@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/js/klant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/klant.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
@@ -74,7 +73,7 @@
       <workItem from="1618857014223" duration="15255000" />
       <workItem from="1618949098883" duration="11135000" />
       <workItem from="1619078562190" duration="378000" />
-      <workItem from="1619094992145" duration="7686000" />
+      <workItem from="1619094992145" duration="9008000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -104,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618866695740</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="minor layout update and database startup">
+      <created>1619107449025</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1619107449025</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +133,7 @@
     <MESSAGE value="bit of progress in design of klant" />
     <MESSAGE value="design of first klant page done" />
     <MESSAGE value="design of second klant page 'bestelling controlleren' done" />
-    <option name="LAST_COMMIT_MESSAGE" value="design of second klant page 'bestelling controlleren' done" />
+    <MESSAGE value="minor layout update and database startup" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor layout update and database startup" />
   </component>
 </project>
