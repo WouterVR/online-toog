@@ -73,7 +73,7 @@
       <workItem from="1618857014223" duration="15255000" />
       <workItem from="1618949098883" duration="11135000" />
       <workItem from="1619078562190" duration="378000" />
-      <workItem from="1619094992145" duration="9008000" />
+      <workItem from="1619094992145" duration="9656000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -110,7 +110,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619107449025</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="klant finished alles normaal gezien">
+      <created>1619108643265</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1619108643265</updated>
+    </task>
+    <task id="LOCAL-00007" summary="klant finished alles normaal gezien">
+      <created>1619108658638</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1619108658638</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +148,7 @@
     <MESSAGE value="design of first klant page done" />
     <MESSAGE value="design of second klant page 'bestelling controlleren' done" />
     <MESSAGE value="minor layout update and database startup" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor layout update and database startup" />
+    <MESSAGE value="klant finished alles normaal gezien" />
+    <option name="LAST_COMMIT_MESSAGE" value="klant finished alles normaal gezien" />
   </component>
 </project>

@@ -242,6 +242,10 @@ function continueButton(){
 
 function payButton(){
     let tableNumber = $('#tableNumber').val();
+    if(tableNumber<= 0 || tableNumber >=10){
+        alert('Gelieve een tafelnummer tussen 1 en 10 in te vulen.');
+        return;
+    }
     let remark = $('#remark').val();
     console.log('table number: '+ tableNumber.toString() + ' and remark: '+remark);
     //delete possible previous orderdetails and update with new data

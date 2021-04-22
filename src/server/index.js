@@ -108,6 +108,7 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
     console.log("The read failed: " + errorObject);
 });
 /*
+fillMenuWithDummyData()
 function fillMenuWithDummyData(){
     console.log('filling menu');
     let menuItem0 = {
@@ -120,13 +121,13 @@ function fillMenuWithDummyData(){
         price: 2,
         availability: true
     };
-    let menuItem3 = {
-        name: "Duvel",
+    let menuItem2 = {
+        name: "Keizer Karel",
         price: 2,
         availability: true
     };
-    let menuItem2 = {
-        name: "Keize Karel",
+    let menuItem3 = {
+        name: "Duvel",
         price: 2,
         availability: true
     };
@@ -188,7 +189,9 @@ function fillMenuWithDummyData(){
     menu.push(menuItem0,menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7,menuItem8,menuItem9,menuItem10,menuItem11,menuItem12,menuItem13,menuItem14);
     console.log('filled: ' + menu);
     realtimeDatabase.ref("menu/").set(menu).then(r  => console.log('menu successfully set'));
-}*/
+}
+
+ */
 
 function addOrderToOrderList(order){
     realtimeDatabase.ref("orders/" + Date.now()).set(order).then(r  => console.log('data successfully set'));
