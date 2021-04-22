@@ -10,29 +10,36 @@ function pageLoad(){
 }
 
 function fillMenu(){
+    //TODO let these items come from database
     let item0 = {
         name: 'Primus',
-        price: '1'
-    }
+        price: '1',
+        available: true
+    };
     let item1= {
         name: 'Tongerloo',
-        price: '2'
-    }
+        price: '2',
+        available: true
+    };
     let item2 = {
         name: 'IceTea Green',
-        price: '1'
-    }
+        price: '1',
+        available: true
+    };
     let item3 = {
         name: 'Karmeliet',
-        price: '2'
-    }
+        price: '2',
+        available: true
+    };
     let item4 = {
         name: 'Duvel',
-        price: '2'
-    }
+        price: '2',
+        available: true
+    };
     let item5 = {
         name: 'Kasteelbier Rouge',
-        price: '2'
+        price: '2',
+        available: true
     };
     menu = [item0, item1, item2, item3, item4, item5];
     console.log(menu);
@@ -190,7 +197,7 @@ function setOrderDetailsView(){
     /** FOOTER **/
     let button1 = document.createElement('button');
     button1.setAttribute('class', 'mdc-button mdc-button--raised');
-    button1.onclick = function () {setPlaceOrderView();}; //TODO add ability to fill in old order
+    button1.onclick = function () {backButton();};
     button1.append(document.createTextNode('TERUG'));
 
     let spaceBetweenDiv = document.createElement('div');
@@ -255,7 +262,29 @@ function continueButton(){
         return;
     }
     setOrderDetailsView();
-    let url = '/prepareOrder';
+}
+
+function payButton(){
+    let tableNumber = $('#tableNumber').val();
+    let remark = $('#remark').val();
+    console.log('table number: '+ tableNumber.toString() + ' and remark: '+remark);
+    //delete possible previous orderdetails and update with new data
+    for(let menuItemId in order){
+        if(order[menuItemId].payed !== undefined){
+            order[menuItemId] = null;
+        }
+    }
+    let orderDetails = {
+        payed: false,
+        tableNumber: tableNumber,
+        remark: remark,
+        paymentMethod: "cash", //TODO integrate different payment methods
+        finished: false,
+        timestamp:Date.now()
+    }
+    order.push(orderDetails)
+
+    let url = '/placeOrder';
     $.post(url, JSON.stringify(order), function (data, status){
         if(status === "success"){
             console.log('http status response 200 OK');
@@ -263,8 +292,16 @@ function continueButton(){
             console.log('Something went wrong with receiving the userlist');
         }
     });
+
+    alert('Betalen maar!');
 }
 
-function payButton(){
-    alert('Betalen maar!');
+function backButton(){
+    setPlaceOrderView()
+    for(let menuItemId in order){
+        let amountOfItemText = document.getElementById('amountSelected-'+order[menuItemId].name)
+        let newValue = order[menuItemId].amount;
+        amountOfItemText.childNodes[0].nodeValue= newValue.toString() //add one to the existing value
+    }
+    updateTotalPrice()
 }
