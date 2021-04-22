@@ -3,46 +3,22 @@ let order = [];
 let totalPrice =0;
 
 function pageLoad(){
-    fillMenu()
-    setPlaceOrderView();
-    totalPrice =0;
-    updateTotalPrice(0);
+    fillMenuAndView();
+    updateTotalPrice();
 }
 
-function fillMenu(){
-    //TODO let these items come from database
-    let item0 = {
-        name: 'Primus',
-        price: '1',
-        available: true
-    };
-    let item1= {
-        name: 'Tongerloo',
-        price: '2',
-        available: true
-    };
-    let item2 = {
-        name: 'IceTea Green',
-        price: '1',
-        available: true
-    };
-    let item3 = {
-        name: 'Karmeliet',
-        price: '2',
-        available: true
-    };
-    let item4 = {
-        name: 'Duvel',
-        price: '2',
-        available: true
-    };
-    let item5 = {
-        name: 'Kasteelbier Rouge',
-        price: '2',
-        available: true
-    };
-    menu = [item0, item1, item2, item3, item4, item5];
-    console.log(menu);
+function fillMenuAndView(){
+    let url = '/getMenu';
+    $.post(url, "give me the menu plz", function (data, status){
+        if(status === "success"){
+            menu = JSON.parse(data);
+            console.log(menu);
+            setPlaceOrderView();
+            console.log('http status response 200 OK');
+        }else{
+            console.log('Something went wrong with receiving the userlist');
+        }
+    });
 }
 
 function setPlaceOrderView() {
