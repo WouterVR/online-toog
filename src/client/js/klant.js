@@ -316,8 +316,37 @@ function backButton(){
 }
 
 function payWithPayconiq(){
+
+    let ios = /iphone|XBLWP7/i.test(navigator.userAgent.toLowerCase());
+    let android = /android|XBLWP7/i.test(navigator.userAgent.toLowerCase());
+    let phoneOS = ""
+    if(ios) phoneOS = "ios"
+    if(android) phoneOS = "android"
+
     //TODO implement payconiq
     alert('Paying with payconiq is not supported yet')
+    //Check if the last item is already some order details. In this case delete that information
+    if(order[order.length-1].payed !== undefined)  order.pop();
+
+    let orderDetails = {
+        payed: false,
+        tableNumber: tableNumber,
+        remark: remark,
+        paymentMethod: "payconiq_by_bancontact",
+        phoneOS: phoneOS,
+        finished: false,
+        timestamp:Date.now()
+    }
+    order.push(orderDetails)
+
+    let url = '/placeOrder/payconiq';
+    $.post(url, JSON.stringify(order), function (data, status){
+        if(status === "success"){
+            console.log('Order sent to JH de bem server');
+        }else{
+            console.log('Something went wrong with placing the order');
+        }
+    });
 }
 
 function payInCash(){
@@ -334,7 +363,7 @@ function payInCash(){
     }
     order.push(orderDetails)
 
-    let url = '/placeOrder';
+    let url = '/placeOrder/cash';
     $.post(url, JSON.stringify(order), function (data, status){
         if(status === "success"){
             console.log('Order placed successfully');
@@ -343,5 +372,5 @@ function payInCash(){
             console.log('Something went wrong with placing the order');
         }
     });
-
 }
+

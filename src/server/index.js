@@ -7,7 +7,8 @@ const port = process.env.PORT || 3001;
 // use createReadStream instead to save memory
 const fs = require('fs');
 const klantHTML = fs.readFileSync('src/client/klant/klant.html');
-const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html')
+const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html');
+const orderReceived = fs.readFileSync('src/client/klant/orderReceived.html');
 const klantJS = fs.readFileSync('src/client/js/klant.js');
 const style = fs.readFileSync('src/client/css/style.css');
 const faviconPng = fs.readFileSync('src/client/img/logo.png');
@@ -52,11 +53,24 @@ const server = http.createServer((req, res) => {
         res.write(orderDetailsHTML);
         res.end();
     }
-    if (req.url === "/placeOrder") {
+    if (req.url === "/orderReceived") {
+        res.setHeader("Content-Type", "text/html");
+        res.write(orderReceived);
+        res.end();
+    }
+    if (req.url === "/placeOrder/cash") {
         req.on('data', function (data){
-            console.log('new order:',JSON.parse(data));
+            console.log('new order will be payed in cash:',JSON.parse(data));
             addOrderToOrderList(JSON.parse(data));
             res.write(JSON.stringify(orders));
+            res.end();
+        })
+    }
+    if (req.url === "/placeOrder/payconiq") {
+        req.on('data', function (data){
+            console.log('new order payed with payconiq:',JSON.parse(data));
+            let deeplinkUrl = handlePayconiqPayment(JSON.parse(data));
+            res.write(deeplinkUrl);
             res.end();
         })
     }
@@ -73,7 +87,7 @@ server.listen(port, () => {
     console.log(`Server running at port ${port}`)
 })
 
-//////////FIREBASE SETUP////////////
+////////// FIREBASE SETUP ////////////
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 let firebase = require("firebase/app");
@@ -119,92 +133,98 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
 }, function (errorObject) {
     console.log("The read failed: " + errorObject);
 });
-/*
-fillMenuWithDummyData()
-function fillMenuWithDummyData(){
-    console.log('filling menu');
-    let menuItem0 = {
-        name: "Primus",
-        price: 1,
-        availability: true
-    };
-    let menuItem1 = {
-        name: "Kasteelbier Rouge",
-        price: 2,
-        availability: true
-    };
-    let menuItem2 = {
-        name: "Keizer Karel",
-        price: 2,
-        availability: true
-    };
-    let menuItem3 = {
-        name: "Duvel",
-        price: 2,
-        availability: true
-    };
-    let menuItem4 = {
-        name: "Grimbergen Blond",
-        price: 2,
-        availability: true
-    };
-    let menuItem5 = {
-        name: "Tongerlo blond",
-        price: 2,
-        availability: true
-    };
-    let menuItem6 = {
-        name: "Karmeliet",
-        price: 2,
-        availability: true
-    };
-    let menuItem7= {
-        name: "Water plat",
-        price: 0,
-        availability: true
-    };
-    let menuItem8 = {
-        name: "Water bruis",
-        price: 1,
-        availability: true
-    };
-    let menuItem9 = {
-        name: "Fanta",
-        price: 1,
-        availability: true
-    };
-    let menuItem10 = {
-        name: "Cola",
-        price: 1,
-        availability: true
-    };
-    let menuItem11 = {
-        name: "Pepsi max",
-        price: 1,
-        availability: true
-    };
-    let menuItem12 = {
-        name: "IceTea",
-        price: 1,
-        availability: true
-    };
-    let menuItem13 = {
-        name: "IceTea Green",
-        price: 1,
-        availability: true
-    };
-    let menuItem14 = {
-        name: "Desperados",
-        price: 2.5,
-        availability: true
-    };
-    menu.push(menuItem0,menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7,menuItem8,menuItem9,menuItem10,menuItem11,menuItem12,menuItem13,menuItem14);
-    console.log('filled: ' + menu);
-    realtimeDatabase.ref("menu/").set(menu).then(r  => console.log('menu successfully set'));
-}
 
- */
+//fillMenuWithDummyData()
+function fillMenuWithDummyData(){
+    /*    console.log('filling menu');
+        let menuItem0 = {
+            name: "Primus",
+            price: 1,
+            availability: true
+        };
+        let menuItem1 = {
+            name: "Kasteelbier Rouge",
+            price: 2,
+            availability: true
+        };
+        let menuItem2 = {
+            name: "Keizer Karel",
+            price: 2,
+            availability: true
+        };
+        let menuItem3 = {
+            name: "Duvel",
+            price: 2,
+            availability: true
+        };
+        let menuItem4 = {
+            name: "Grimbergen Blond",
+            price: 2,
+            availability: true
+        };
+        let menuItem5 = {
+            name: "Tongerlo blond",
+            price: 2,
+            availability: true
+        };
+        let menuItem6 = {
+            name: "Karmeliet",
+            price: 2,
+            availability: true
+        };
+        let menuItem7= {
+            name: "Water plat",
+            price: 0,
+            availability: true
+        };
+        let menuItem8 = {
+            name: "Water bruis",
+            price: 1,
+            availability: true
+        };
+        let menuItem9 = {
+            name: "Fanta",
+            price: 1,
+            availability: true
+        };
+        let menuItem10 = {
+            name: "Cola",
+            price: 1,
+            availability: true
+        };
+        let menuItem11 = {
+            name: "Pepsi max",
+            price: 1,
+            availability: true
+        };
+        let menuItem12 = {
+            name: "IceTea",
+            price: 1,
+            availability: true
+        };
+        let menuItem13 = {
+            name: "IceTea Green",
+            price: 1,
+            availability: true
+        };
+        let menuItem14 = {
+            name: "Desperados",
+            price: 2.5,
+            availability: true
+        };
+        menu.push(menuItem0,menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7,menuItem8,menuItem9,menuItem10,menuItem11,menuItem12,menuItem13,menuItem14);
+        console.log('filled: ' + menu);
+        realtimeDatabase.ref("menu/").set(menu).then(r  => console.log('menu successfully set'));
+
+     */
+}
 
 function addOrderToOrderList(order){
     realtimeDatabase.ref("orders/" + Date.now()).set(order).then(r  => console.log('data successfully set'));
+}
+
+function handlePayconiqPayment(order){
+    var deeplinkUrl = getDeeplinkUrlFromPaycconiqPayment(); //TODO how to get this link?
+    var returnUrl = "?returnUrl=online-toog.jhdebem.be/orderReceived";
+    return deeplinkUrl.concat(returnUrl);
 }
