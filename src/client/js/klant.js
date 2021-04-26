@@ -28,51 +28,53 @@ function setPlaceOrderView() {
     list.setAttribute('class','item-list');
 
     for(let menuItem in menu){
-        console.log('item: ', menu[menuItem]['name']);
-        let listItem = document.createElement('li');
+        if(menu[menuItem].availability) {
+            console.log('item: ', menu[menuItem]['name']);
+            let listItem = document.createElement('li');
 
-        let itemContainer = document.createElement('div');
-        itemContainer.setAttribute('class', "item-container");
+            let itemContainer = document.createElement('div');
+            itemContainer.setAttribute('class', "item-container");
             let itemNamePrice = document.createElement('div');
             itemNamePrice.setAttribute('class', "item-name-price");
-                let itemName = document.createElement('p');
-                itemName.setAttribute('class', "item-name");
-                itemName.setAttribute('id', "item-name-"+menu[menuItem].name);
-                itemName.append(document.createTextNode(menu[menuItem].name));
-                let itemEuroPrice = document.createElement('div');
-                itemEuroPrice.setAttribute("class","item-€-price");
-                    let euroSign = document.createElement('span');
-                    euroSign.append(document.createTextNode('€'));
-                    let priceSpan= document.createElement('span');
-                    priceSpan.setAttribute('id','item-price-'+menu[menuItem].name);
-                    priceSpan.append(document.createTextNode(menu[menuItem].price));
-                itemEuroPrice.append(euroSign);
-                itemEuroPrice.append(priceSpan);
+            let itemName = document.createElement('p');
+            itemName.setAttribute('class', "item-name");
+            itemName.setAttribute('id', "item-name-" + menu[menuItem].name);
+            itemName.append(document.createTextNode(menu[menuItem].name));
+            let itemEuroPrice = document.createElement('div');
+            itemEuroPrice.setAttribute("class", "item-€-price");
+            let euroSign = document.createElement('span');
+            euroSign.append(document.createTextNode('€'));
+            let priceSpan = document.createElement('span');
+            priceSpan.setAttribute('id', 'item-price-' + menu[menuItem].name);
+            priceSpan.append(document.createTextNode(menu[menuItem].price));
+            itemEuroPrice.append(euroSign);
+            itemEuroPrice.append(priceSpan);
             itemNamePrice.append(itemName);
             itemNamePrice.append(itemEuroPrice);
             let itemAmountButtons = document.createElement('div');
             itemAmountButtons.setAttribute('class', "item-amount-buttons");
-                let amountSelected= document.createElement('span');
-                amountSelected.setAttribute('id','amountSelected-'+menu[menuItem].name);
-                amountSelected.append(document.createTextNode('0'));
-                let removeButton =document.createElement('span');
-                removeButton.setAttribute('class','mdc-icon-button material-icons');
-                removeButton.setAttribute('id','remove-button-'+menu[menuItem].name);
-                removeButton.append(document.createTextNode('remove_circle'));
-                let addButton =document.createElement('span');
-                addButton.setAttribute('class','mdc-icon-button material-icons');
-                addButton.setAttribute('id','add-button-'+menu[menuItem].name);
-                addButton.append(document.createTextNode('add_circle'));
+            let amountSelected = document.createElement('span');
+            amountSelected.setAttribute('id', 'amountSelected-' + menu[menuItem].name);
+            amountSelected.append(document.createTextNode('0'));
+            let removeButton = document.createElement('span');
+            removeButton.setAttribute('class', 'mdc-icon-button material-icons');
+            removeButton.setAttribute('id', 'remove-button-' + menu[menuItem].name);
+            removeButton.append(document.createTextNode('remove_circle'));
+            let addButton = document.createElement('span');
+            addButton.setAttribute('class', 'mdc-icon-button material-icons');
+            addButton.setAttribute('id', 'add-button-' + menu[menuItem].name);
+            addButton.append(document.createTextNode('add_circle'));
             itemAmountButtons.append(amountSelected);
             itemAmountButtons.append(removeButton);
             itemAmountButtons.append(addButton);
-        itemContainer.append(itemNamePrice);
-        itemContainer.append(itemAmountButtons);
+            itemContainer.append(itemNamePrice);
+            itemContainer.append(itemAmountButtons);
 
-        listItem.append(itemContainer);
+            listItem.append(itemContainer);
 
 
-        list.append(listItem);
+            list.append(listItem);
+        }
     }
 
     $('#main').empty()
@@ -197,11 +199,14 @@ function setPaymentMethodView(){
     h3.appendChild(document.createTextNode("Kies je betaalmethode:"));
     let pdiv = document.createElement('div')
     pdiv.setAttribute("class","logo-div");
+    //let href = document.createElement('a')
+    //href.setAttribute('href',payWithPayconiq());
     let img = document.createElement('img');
     img.setAttribute('id', 'payconiq_logo');
     img.onclick = function () {payWithPayconiq();};
     img.setAttribute('src', '../img/payconiq_by_Bancontact-logo-app-pos.png');
     img.setAttribute('alt', 'payconiq_by_Bancontact.png');
+    //href.append(img)
     pdiv.append(img)
     let hr = document.createElement('hr');
     hr.setAttribute('style','width: 80%');
@@ -316,15 +321,7 @@ function backButton(){
 }
 
 function payWithPayconiq(){
-
-    let ios = /iphone|XBLWP7/i.test(navigator.userAgent.toLowerCase());
-    let android = /android|XBLWP7/i.test(navigator.userAgent.toLowerCase());
-    let phoneOS = ""
-    if(ios) phoneOS = "ios"
-    if(android) phoneOS = "android"
-
     //TODO implement payconiq
-    alert('Paying with payconiq is not supported yet')
     //Check if the last item is already some order details. In this case delete that information
     if(order[order.length-1].payed !== undefined)  order.pop();
 
@@ -332,21 +329,43 @@ function payWithPayconiq(){
         payed: false,
         tableNumber: tableNumber,
         remark: remark,
+        amount: totalPrice,
         paymentMethod: "payconiq_by_bancontact",
-        phoneOS: phoneOS,
         finished: false,
         timestamp:Date.now()
     }
     order.push(orderDetails)
-
+    window.localStorage.setItem("orderDetails", orderDetails)
+/*
+    let deeplink = "HTTPS://PAYCONIQ.COM/PAY/2/9B878601D8EFF4D2CD3603D6"
+    deeplink.toLowerCase()
+    deeplink.concat("?returnUrl=online-toog.jhdebem.be/orderDetails")
+    window.location.href = deeplink
+*/
     let url = '/placeOrder/payconiq';
-    $.post(url, JSON.stringify(order), function (data, status){
+    $.post(url, JSON.stringify(order), function (deeplink, status){
         if(status === "success"){
-            console.log('Order sent to JH de bem server');
+            console.log('Order sent to JH de bem server, deeplink response: '+JSON.stringify(deeplink));
+            //return JSON.stringify(deeplink);
+            payconiqRedirectURL =deeplink
+            payconiqRedirectURL.concat("?returnUrl=online-toog.jhdebem.be/orderDetails")
+            redirect(JSON.stringify(deeplink))
+            //window.location.href = JSON.stringify(deeplink);
         }else{
             console.log('Something went wrong with placing the order');
         }
     });
+
+
+    let ios = /iphone|XBLWP7/i.test(navigator.userAgent.toLowerCase());
+    let android = /android|XBLWP7/i.test(navigator.userAgent.toLowerCase());
+    //TODO implement different
+
+}
+let payconiqRedirectURL = ""
+
+function redirect(url){
+    window.location.href = payconiqRedirectURL;
 }
 
 function payInCash(){

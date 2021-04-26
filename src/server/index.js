@@ -1,4 +1,6 @@
 const http = require('http')
+const https = require('https')
+const fetch = require("node-fetch");
 let path = require('path')
 
 //const port = process.env.PORT //not working?
@@ -69,15 +71,59 @@ const server = http.createServer((req, res) => {
     if (req.url === "/placeOrder/payconiq") {
         req.on('data', function (data){
             console.log('new order payed with payconiq:',JSON.parse(data));
-            let deeplinkUrl = handlePayconiqPayment(JSON.parse(data));
-            res.write(deeplinkUrl);
-            res.end();
+            order = JSON.parse(data)
+            let orderDetails = order[order.length-1]
+            let payment = {
+                reference: orderDetails.timestamp,
+                amount: orderDetails.amount*100+6,
+                currency: 'EUR',
+                description: "Bestelling "+orderDetails.timestamp,
+                callbackUrl: 'http://192.168.2.124:3001/paymentResponseFromPayconiq',
+                creditor: {
+                    merchantId: merchantId,
+                    profileId:paymentProfileId,
+                    callbackUrl: '192.168.2.124:3001/paymentResponseFromPayconiq',
+                    Authorization: 'Bearer '+APIkey,
+                }
+            }
+            console.log(JSON.stringify(payment))
+            const userAction = async () => {
+                const response = await fetch('https://api.ext.payconiq.com/v3/payments/', {
+                    method: 'POST',
+                    body: JSON.stringify(payment), // string or object
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer '+APIkey,
+                        'Cache-Control': 'no-cache',
+                        merchantId: merchantId,
+                        profileId:paymentProfileId
+                    }
+                });
+                const payconiqResponseInJSON = await response.json(); //extract JSON from the http response
+                console.log("return : "+JSON.stringify(payconiqResponseInJSON))
+                return payconiqResponseInJSON
+            }
+            userAction().then(payconiqResponseInJSON => {
+                console.log('then : '+payconiqResponseInJSON)
+                let deeplink = JSON.stringify(payconiqResponseInJSON._links.deeplink['href']).toLowerCase()
+                deeplink = deeplink.substr(1)
+                deeplink = deeplink.slice(0,-1)
+                console.log('deeplink: '+deeplink)
+                res.write(deeplink);
+                res.end();
+            })
         })
     }
     if (req.url === "/getMenu") {
         req.on('data', function (data){
             console.log(data.toString());
             res.write(JSON.stringify(menu));
+            res.end();
+        })
+    }
+    if (req.url === "/paymentResponseFromPayconiq") {
+        req.on('data', function (data){
+            console.log('Order response form payconiq:',JSON.parse(data));
             res.end();
         })
     }
@@ -223,8 +269,112 @@ function addOrderToOrderList(order){
     realtimeDatabase.ref("orders/" + Date.now()).set(order).then(r  => console.log('data successfully set'));
 }
 
-function handlePayconiqPayment(order){
-    var deeplinkUrl = getDeeplinkUrlFromPaycconiqPayment(); //TODO how to get this link?
-    var returnUrl = "?returnUrl=online-toog.jhdebem.be/orderReceived";
-    return deeplinkUrl.concat(returnUrl);
+//// Payconiq by Bancontact ////
+
+const merchantId = '6086a1bd7e59ce00066de954'
+const paymentProfileId ='6086a2077e59ce00066de955'
+const APIkey = "5c20c8f4-cbd3-4f91-ae1a-9bfc081dfc84"
+
+const payconiqServer = {
+
 }
+/*
+let orderDetails = {
+    payed: false,
+    tableNumber: '1',
+    remark: '',
+    amount: 1,
+    paymentMethod: 'payconiq_by_bancontact',
+    finished: false,
+    timestamp: 1619469484015 }
+
+let payment = {
+    reference: orderDetails.timestamp,
+    amount: orderDetails.amount*100+6,
+    currency: 'EUR',
+    description: "Bestelling "+orderDetails.timestamp,
+    callbackUrl: '192.168.2.124:3001/orderReceived',
+    creditor: {
+        merchantId: merchantId,
+        profileId:paymentProfileId,
+        callbackUrl: '192.168.2.124:3001/paymentResponseFromPayconiq',
+        Authorization: 'Bearer '+APIkey,
+        APIkey: APIkey,
+        APIKey: APIkey,
+    }
+}
+
+const createPayment = {
+    hostname: 'api.ext.payconiq.com/v3',
+    method: 'POST',
+    path: "/payments",
+    family:6,
+    headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer '+APIkey,
+        merchantId: merchantId,
+        profileId:paymentProfileId
+    }
+}
+
+
+const createPaymentRequest = https.request(createPayment, res => {
+    console.log(`statusCode: ${res.statusCode}`)
+    res.on('data', d => {
+        console.log('Answer from payconiq:' + JSON.stringify(res))
+    })
+})
+
+createPaymentRequest.on('error', error => {
+    console.error('An error occured while creating a payment request via https' + error)
+})
+
+
+createPaymentRequest.write(JSON.stringify(payment))
+createPaymentRequest.end()
+
+function createPayconiqPayment(order){
+    let orderDetails = order[order.length-1]
+    let payment = {
+        reference: orderDetails.timestamp,
+        amount: orderDetails.amount*100+6,
+        currency: 'EUR',
+        description: "Bestelling "+orderDetails.timestamp,
+        callbackUrl: 'http://192.168.2.124:3001/paymentResponseFromPayconiq',
+        creditor: {
+            merchantId: merchantId,
+            profileId:paymentProfileId,
+            callbackUrl: '192.168.2.124:3001/paymentResponseFromPayconiq',
+            Authorization: 'Bearer '+APIkey,
+        }
+    }
+    console.log(JSON.stringify(payment))
+    const userAction = async () => {
+        const response = await fetch('https://api.ext.payconiq.com/v3/payments/', {
+            method: 'POST',
+            body: JSON.stringify(payment), // string or object
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer '+APIkey,
+                'Cache-Control': 'no-cache',
+                merchantId: merchantId,
+                profileId:paymentProfileId
+            }
+        });
+        const myJson = await response.json(); //extract JSON from the http response
+        let payconiqResponse = JSON.stringify(myJson)
+        console.log(payconiqResponse)
+        console.log('Deeplink: ' + myJson._links)
+        return myJson
+    }
+
+
+    userAction().then(myJson => {
+        console.log("then : "+JSON.stringify(myJson))
+        return myJson._links.deeplink.href.toLowerCase()
+    })
+
+}
+
+
+ */

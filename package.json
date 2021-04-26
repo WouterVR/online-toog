@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/WouterVR/online-toog#readme",
   "dependencies": {
-    "firebase": "^8.4.1"
+    "firebase": "^8.4.1",
+    "node-fetch": "^2.6.1"
   }
 }
