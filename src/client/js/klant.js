@@ -348,9 +348,9 @@ function payWithPayconiq(){
             console.log('Order sent to JH de bem server, deeplink response: '+JSON.stringify(deeplink));
             //return JSON.stringify(deeplink);
             payconiqRedirectURL =deeplink
-            payconiqRedirectURL.concat("?returnUrl=online-toog.jhdebem.be/orderDetails")
-            redirect(JSON.stringify(deeplink))
-            //window.location.href = JSON.stringify(deeplink);
+            let returnUrl = "?returnUrl=www.google.com";
+            window.location.href = payconiqRedirectURL.concat(returnUrl);
+            //location.reload();
         }else{
             console.log('Something went wrong with placing the order');
         }
@@ -363,10 +363,6 @@ function payWithPayconiq(){
 
 }
 let payconiqRedirectURL = ""
-
-function redirect(url){
-    window.location.href = payconiqRedirectURL;
-}
 
 function payInCash(){
     //Check if the last item is already some order details. In this case delete that information

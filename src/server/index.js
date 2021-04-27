@@ -17,7 +17,12 @@ const faviconPng = fs.readFileSync('src/client/img/logo.png');
 const cash = fs.readFileSync('src/client/img/cash.png');
 const payconiq = fs.readFileSync('src/client/img/payconiq_by_Bancontact-logo-app-pos.png');
 
-const server = http.createServer((req, res) => {
+const options = {
+    key: fs.readFileSync('key.pem').toString(),
+    cert: fs.readFileSync('cert.pem').toString()
+};
+
+const server = https.createServer(options, (req, res) => {
     console.log("New http request with url: " + req.url);
     res.statusCode = 200
     if (req.url === "/") {
@@ -78,11 +83,12 @@ const server = http.createServer((req, res) => {
                 amount: orderDetails.amount*100+6,
                 currency: 'EUR',
                 description: "Bestelling "+orderDetails.timestamp,
-                callbackUrl: 'http://192.168.2.124:3001/paymentResponseFromPayconiq',
+                callbackUrl: 'https://192.168.2.124:3001/paymentResponseFromPayconiq',
+                returnUrl: "https://192.168.2.124:3001/orderReceived",
                 creditor: {
                     merchantId: merchantId,
                     profileId:paymentProfileId,
-                    callbackUrl: '192.168.2.124:3001/paymentResponseFromPayconiq',
+                    callbackUrl: 'https://192.168.2.124:3001/paymentResponseFromPayconiq',
                     Authorization: 'Bearer '+APIkey,
                 }
             }
@@ -106,6 +112,7 @@ const server = http.createServer((req, res) => {
             userAction().then(payconiqResponseInJSON => {
                 console.log('then : '+payconiqResponseInJSON)
                 let deeplink = JSON.stringify(payconiqResponseInJSON._links.deeplink['href']).toLowerCase()
+                // Remove the space before and after the link
                 deeplink = deeplink.substr(1)
                 deeplink = deeplink.slice(0,-1)
                 console.log('deeplink: '+deeplink)
@@ -127,6 +134,7 @@ const server = http.createServer((req, res) => {
             res.end();
         })
     }
+
 })
 
 server.listen(port, () => {
