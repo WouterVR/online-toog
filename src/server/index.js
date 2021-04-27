@@ -79,12 +79,12 @@ const server = http.createServer((req, res) => {
                 amount: orderDetails.amount*100+6,
                 currency: 'EUR',
                 description: "Bestelling "+orderDetails.timestamp,
-                callbackUrl: 'https://192.168.2.124:3001/paymentResponseFromPayconiq',
-                returnUrl: "https://192.168.2.124:3001/orderReceived",
+                callbackUrl: 'http://online-toog.jhdebem.be/paymentResponseFromPayconiq',
+                returnUrl: "http://online-toog.jhdebem.be/orderReceived",
                 creditor: {
                     merchantId: merchantId,
                     profileId:paymentProfileId,
-                    callbackUrl: 'https://192.168.2.124:3001/paymentResponseFromPayconiq',
+                    callbackUrl: 'https://online-toog.jhdebem.be/paymentResponseFromPayconiq',
                     Authorization: 'Bearer '+APIkey,
                 }
             }
