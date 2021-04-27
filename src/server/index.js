@@ -11,6 +11,8 @@ const fs = require('fs');
 const klantHTML = fs.readFileSync('src/client/klant/klant.html');
 const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html');
 const orderReceived = fs.readFileSync('src/client/klant/orderReceived.html');
+const payconisPaymentStatusSUCCEEDED = fs.readFileSync('src/client/klant/payconiqPaymentStatusSucceeded.html');
+const payconisPaymentStatusERROR = fs.readFileSync('src/client/klant/payconiqPaymentStatusError.html');
 const klantJS = fs.readFileSync('src/client/js/klant.js');
 const style = fs.readFileSync('src/client/css/style.css');
 const faviconPng = fs.readFileSync('src/client/img/logo.png');
@@ -51,6 +53,13 @@ const server = http.createServer((req, res) => {
         res.write(payconiq);
         res.end();
     }
+    if (req.url === "/getMenu") {
+        req.on('data', function (data){
+            console.log(data.toString());
+            res.write(JSON.stringify(menu));
+            res.end();
+        })
+    }
     if (req.url === "/html/orderDetails") {
         res.setHeader("Content-Type", "text/html");
         res.write(orderDetailsHTML);
@@ -76,29 +85,21 @@ const server = http.createServer((req, res) => {
             let orderDetails = order[order.length-1]
             let payment = {
                 reference: orderDetails.timestamp,
-                amount: orderDetails.amount*100+6,
+                amount: orderDetails.amount*100+6, //Amount is in cents and we add 6 cents transaction costs
                 currency: 'EUR',
                 description: "Bestelling "+orderDetails.timestamp,
                 callbackUrl: 'http://online-toog.jhdebem.be/paymentResponseFromPayconiq',
                 returnUrl: "http://online-toog.jhdebem.be/orderReceived",
-                creditor: {
-                    merchantId: merchantId,
-                    profileId:paymentProfileId,
-                    callbackUrl: 'https://online-toog.jhdebem.be/paymentResponseFromPayconiq',
-                    Authorization: 'Bearer '+APIkey,
-                }
             }
-            console.log(JSON.stringify(payment))
+            console.log('created the payment body: ' + JSON.stringify(payment))
             const userAction = async () => {
                 const response = await fetch('https://api.ext.payconiq.com/v3/payments/', {
                     method: 'POST',
-                    body: JSON.stringify(payment), // string or object
+                    body: JSON.stringify(payment),
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: 'Bearer '+APIkey,
                         'Cache-Control': 'no-cache',
-                        merchantId: merchantId,
-                        profileId:paymentProfileId
                     }
                 });
                 const payconiqResponseInJSON = await response.json(); //extract JSON from the http response
@@ -106,21 +107,35 @@ const server = http.createServer((req, res) => {
                 return payconiqResponseInJSON
             }
             userAction().then(payconiqResponseInJSON => {
-                console.log('then : '+payconiqResponseInJSON)
-                let deeplink = JSON.stringify(payconiqResponseInJSON._links.deeplink['href']).toLowerCase()
-                // Remove the space before and after the link
-                deeplink = deeplink.substr(1)
-                deeplink = deeplink.slice(0,-1)
-                console.log('deeplink: '+deeplink)
-                res.write(deeplink);
+                console.log('then : '+JSON.stringify(payconiqResponseInJSON))
+                res.write(JSON.stringify(payconiqResponseInJSON));
                 res.end();
             })
         })
     }
-    if (req.url === "/getMenu") {
-        req.on('data', function (data){
-            console.log(data.toString());
-            res.write(JSON.stringify(menu));
+    if (req.url.includes("/lookupOrder")) {
+        let paymentReference = req.url.replace("/lookupOrder/",'');
+        console.log('server is going to look for payconiq payment with reference: '+ paymentReference)
+        const userAction = async () => {
+            const response = await fetch('https://api.ext.payconiq.com/v3/payments/'+paymentReference, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer '+APIkey,
+                }
+            });
+            const payconiqResponseInJSON = await response.json(); //extract JSON from the http response
+            console.log("Payment details: "+JSON.stringify(payconiqResponseInJSON))
+            return payconiqResponseInJSON
+        }
+        userAction().then(payconiqResponseInJSON => {
+            res.setHeader("Content-Type", "text/html");
+            if(payconiqResponseInJSON.status === "SUCCEEDED"){
+                res.write(payconisPaymentStatusSUCCEEDED);
+            }else{
+                res.write(payconisPaymentStatusERROR);
+                console.error('error, payment not succeeded: '+JSON.stringify(payconiqResponseInJSON))
+            }
             res.end();
         })
     }
@@ -184,201 +199,12 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
     console.log("The read failed: " + errorObject);
 });
 
-//fillMenuWithDummyData()
-function fillMenuWithDummyData(){
-    /*    console.log('filling menu');
-        let menuItem0 = {
-            name: "Primus",
-            price: 1,
-            availability: true
-        };
-        let menuItem1 = {
-            name: "Kasteelbier Rouge",
-            price: 2,
-            availability: true
-        };
-        let menuItem2 = {
-            name: "Keizer Karel",
-            price: 2,
-            availability: true
-        };
-        let menuItem3 = {
-            name: "Duvel",
-            price: 2,
-            availability: true
-        };
-        let menuItem4 = {
-            name: "Grimbergen Blond",
-            price: 2,
-            availability: true
-        };
-        let menuItem5 = {
-            name: "Tongerlo blond",
-            price: 2,
-            availability: true
-        };
-        let menuItem6 = {
-            name: "Karmeliet",
-            price: 2,
-            availability: true
-        };
-        let menuItem7= {
-            name: "Water plat",
-            price: 0,
-            availability: true
-        };
-        let menuItem8 = {
-            name: "Water bruis",
-            price: 1,
-            availability: true
-        };
-        let menuItem9 = {
-            name: "Fanta",
-            price: 1,
-            availability: true
-        };
-        let menuItem10 = {
-            name: "Cola",
-            price: 1,
-            availability: true
-        };
-        let menuItem11 = {
-            name: "Pepsi max",
-            price: 1,
-            availability: true
-        };
-        let menuItem12 = {
-            name: "IceTea",
-            price: 1,
-            availability: true
-        };
-        let menuItem13 = {
-            name: "IceTea Green",
-            price: 1,
-            availability: true
-        };
-        let menuItem14 = {
-            name: "Desperados",
-            price: 2.5,
-            availability: true
-        };
-        menu.push(menuItem0,menuItem1,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7,menuItem8,menuItem9,menuItem10,menuItem11,menuItem12,menuItem13,menuItem14);
-        console.log('filled: ' + menu);
-        realtimeDatabase.ref("menu/").set(menu).then(r  => console.log('menu successfully set'));
-
-     */
-}
-
 function addOrderToOrderList(order){
-    realtimeDatabase.ref("orders/" + Date.now()).set(order).then(r  => console.log('data successfully set'));
+    let orderTimestamp = order[order.length-1].timestamp
+    realtimeDatabase.ref("orders/" + orderTimestamp).set(order).then(r  => console.log('data successfully set'));
 }
 
-//// Payconiq by Bancontact ////
-
+//// Payconiq by Bancontact credentials ////
 const merchantId = '6086a1bd7e59ce00066de954'
 const paymentProfileId ='6086a2077e59ce00066de955'
 const APIkey = "5c20c8f4-cbd3-4f91-ae1a-9bfc081dfc84"
-
-const payconiqServer = {
-
-}
-/*
-let orderDetails = {
-    payed: false,
-    tableNumber: '1',
-    remark: '',
-    amount: 1,
-    paymentMethod: 'payconiq_by_bancontact',
-    finished: false,
-    timestamp: 1619469484015 }
-
-let payment = {
-    reference: orderDetails.timestamp,
-    amount: orderDetails.amount*100+6,
-    currency: 'EUR',
-    description: "Bestelling "+orderDetails.timestamp,
-    callbackUrl: '192.168.2.124:3001/orderReceived',
-    creditor: {
-        merchantId: merchantId,
-        profileId:paymentProfileId,
-        callbackUrl: '192.168.2.124:3001/paymentResponseFromPayconiq',
-        Authorization: 'Bearer '+APIkey,
-        APIkey: APIkey,
-        APIKey: APIkey,
-    }
-}
-
-const createPayment = {
-    hostname: 'api.ext.payconiq.com/v3',
-    method: 'POST',
-    path: "/payments",
-    family:6,
-    headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer '+APIkey,
-        merchantId: merchantId,
-        profileId:paymentProfileId
-    }
-}
-
-
-const createPaymentRequest = https.request(createPayment, res => {
-    console.log(`statusCode: ${res.statusCode}`)
-    res.on('data', d => {
-        console.log('Answer from payconiq:' + JSON.stringify(res))
-    })
-})
-
-createPaymentRequest.on('error', error => {
-    console.error('An error occured while creating a payment request via https' + error)
-})
-
-
-createPaymentRequest.write(JSON.stringify(payment))
-createPaymentRequest.end()
-
-function createPayconiqPayment(order){
-    let orderDetails = order[order.length-1]
-    let payment = {
-        reference: orderDetails.timestamp,
-        amount: orderDetails.amount*100+6,
-        currency: 'EUR',
-        description: "Bestelling "+orderDetails.timestamp,
-        callbackUrl: 'http://192.168.2.124:3001/paymentResponseFromPayconiq',
-        creditor: {
-            merchantId: merchantId,
-            profileId:paymentProfileId,
-            callbackUrl: '192.168.2.124:3001/paymentResponseFromPayconiq',
-            Authorization: 'Bearer '+APIkey,
-        }
-    }
-    console.log(JSON.stringify(payment))
-    const userAction = async () => {
-        const response = await fetch('https://api.ext.payconiq.com/v3/payments/', {
-            method: 'POST',
-            body: JSON.stringify(payment), // string or object
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer '+APIkey,
-                'Cache-Control': 'no-cache',
-                merchantId: merchantId,
-                profileId:paymentProfileId
-            }
-        });
-        const myJson = await response.json(); //extract JSON from the http response
-        let payconiqResponse = JSON.stringify(myJson)
-        console.log(payconiqResponse)
-        console.log('Deeplink: ' + myJson._links)
-        return myJson
-    }
-
-
-    userAction().then(myJson => {
-        console.log("then : "+JSON.stringify(myJson))
-        return myJson._links.deeplink.href.toLowerCase()
-    })
-
-}
-
-
- */

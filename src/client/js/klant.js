@@ -321,7 +321,6 @@ function backButton(){
 }
 
 function payWithPayconiq(){
-    //TODO implement payconiq
     //Check if the last item is already some order details. In this case delete that information
     if(order[order.length-1].payed !== undefined)  order.pop();
 
@@ -335,22 +334,21 @@ function payWithPayconiq(){
         timestamp:Date.now()
     }
     order.push(orderDetails)
-    window.localStorage.setItem("orderDetails", orderDetails)
-/*
-    let deeplink = "HTTPS://PAYCONIQ.COM/PAY/2/9B878601D8EFF4D2CD3603D6"
-    deeplink.toLowerCase()
-    deeplink.concat("?returnUrl=online-toog.jhdebem.be/orderDetails")
-    window.location.href = deeplink
-*/
+    window.localStorage.setItem("orderDetails", JSON.stringify(orderDetails))
     let url = '/placeOrder/payconiq';
-    $.post(url, JSON.stringify(order), function (deeplink, status){
+    $.post(url, JSON.stringify(order), function (payconiqResponseInJSON, status){
         if(status === "success"){
-            console.log('Order sent to JH de bem server, deeplink response: '+JSON.stringify(deeplink));
-            //return JSON.stringify(deeplink);
-            payconiqRedirectURL =deeplink
-            let returnUrl = "?returnUrl=www.google.com";
-            window.location.href = payconiqRedirectURL.concat(returnUrl);
-            //location.reload();
+            payconiqResponseInJSON = JSON.parse(payconiqResponseInJSON)
+            let deeplink = JSON.stringify(payconiqResponseInJSON._links.deeplink['href']).toLowerCase()
+            // Remove the space before and after the link
+            deeplink = deeplink.substr(1)
+            deeplink = deeplink.slice(0,-1)
+            console.log('Order sent to JH de bem server, deeplink response: '+deeplink);
+            let paymentReference = payconiqResponseInJSON.paymentId;
+            var returnUrl = "?returnUrl=http://online-toog.jhdebem.be/lookupOrder/";  //TODO change this for production
+            payconiqRedirectURL = deeplink.concat(returnUrl, paymentReference);
+            console.log('pc redirectUrl: '+payconiqRedirectURL)
+            window.location.href = payconiqRedirectURL;
         }else{
             console.log('Something went wrong with placing the order');
         }

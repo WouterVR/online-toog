@@ -115,6 +115,9 @@ input[type=text], select {
 span {
     padding: 2px;
 }
+p {
+    padding: 2px;
+}
 .item-€-price {
     font-size: 80%;
     color: #a1a1a1;
