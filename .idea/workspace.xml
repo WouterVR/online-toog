@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cert.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/key.pem" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/js/klant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/klant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,7 +82,7 @@
       <workItem from="1619352855728" duration="1380000" />
       <workItem from="1619453871480" duration="15728000" />
       <workItem from="1619550287564" duration="115000" />
-      <workItem from="1619550433274" duration="3078000" />
+      <workItem from="1619550433274" duration="3667000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -167,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619477937016</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="payconiq small update + https update">
+      <created>1619553567726</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1619553567726</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +197,7 @@
     <MESSAGE value="betaaloptie scherm toegevoegd en cash betaalmethode afgemaakt" />
     <MESSAGE value="Payconiq implementation start + minor changes" />
     <MESSAGE value="Payconiq werkt!! bijna perfect" />
-    <option name="LAST_COMMIT_MESSAGE" value="Payconiq werkt!! bijna perfect" />
+    <MESSAGE value="payconiq small update + https update" />
+    <option name="LAST_COMMIT_MESSAGE" value="payconiq small update + https update" />
   </component>
 </project>

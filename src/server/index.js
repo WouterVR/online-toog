@@ -17,12 +17,8 @@ const faviconPng = fs.readFileSync('src/client/img/logo.png');
 const cash = fs.readFileSync('src/client/img/cash.png');
 const payconiq = fs.readFileSync('src/client/img/payconiq_by_Bancontact-logo-app-pos.png');
 
-const options = {
-    key: fs.readFileSync('key.pem').toString(),
-    cert: fs.readFileSync('cert.pem').toString()
-};
 
-const server = https.createServer(options, (req, res) => {
+const server = http.createServer((req, res) => {
     console.log("New http request with url: " + req.url);
     res.statusCode = 200
     if (req.url === "/") {
