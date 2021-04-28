@@ -2,9 +2,9 @@ let menu = [];
 let order = [];
 let totalPrice =0;
 let tableNumber = 0;
-let remark = ';'
+let remark = ''
 
-function pageLoad(){
+function klantPageLoad(){
     fillMenuAndView();
     updateTotalPrice();
 }
@@ -14,11 +14,10 @@ function fillMenuAndView(){
     $.post(url, "give me the menu plz", function (data, status){
         if(status === "success"){
             menu = JSON.parse(data);
-            console.log(menu);
+            console.log('http status response 200 OK, menu: '+ menu);
             setPlaceOrderView();
-            console.log('http status response 200 OK');
         }else{
-            console.log('Something went wrong with receiving the userlist');
+            console.log('Something went wrong with receiving the menu');
         }
     });
 }
@@ -108,6 +107,7 @@ function setPlaceOrderView() {
     $('#footer').append(totalDiv, spaceBetweenDiv, button)
 
 }
+
 function setOrderDetailsView(){
     /** MAIN */
     let form = document.createElement('form');
@@ -117,7 +117,7 @@ function setOrderDetailsView(){
     tableNumberLabel.append(document.createTextNode('Tafel nummer:'));
     let inputNumber = document.createElement('input');
     inputNumber.setAttribute('type','number');
-    inputNumber.setAttribute('placeholder','1');
+    inputNumber.setAttribute('placeholder','Nr.');
     inputNumber.setAttribute('id','tableNumber');
     let remarks = document.createElement('input');
     remarks.setAttribute('type','text');
@@ -199,8 +199,6 @@ function setPaymentMethodView(){
     h3.appendChild(document.createTextNode("Kies je betaalmethode:"));
     let pdiv = document.createElement('div')
     pdiv.setAttribute("class","logo-div");
-    //let href = document.createElement('a')
-    //href.setAttribute('href',payWithPayconiq());
     let img = document.createElement('img');
     img.setAttribute('id', 'payconiq_logo');
     img.onclick = function () {payWithPayconiq();};
@@ -370,6 +368,7 @@ function payInCash(){
         payed: false,
         tableNumber: tableNumber,
         remark: remark,
+        amount: totalPrice,
         paymentMethod: "cash",
         finished: false,
         timestamp:Date.now()

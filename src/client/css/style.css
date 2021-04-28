@@ -121,6 +121,7 @@ p {
 .item-€-price {
     font-size: 80%;
     color: #a1a1a1;
+    margin-bottom: 5px;
 }
 
 .item-amount-buttons{

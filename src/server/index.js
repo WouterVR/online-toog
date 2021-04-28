@@ -13,8 +13,11 @@ const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html');
 const orderReceived = fs.readFileSync('src/client/klant/orderReceived.html');
 const payconisPaymentStatusSUCCEEDED = fs.readFileSync('src/client/klant/payconiqPaymentStatusSucceeded.html');
 const payconisPaymentStatusERROR = fs.readFileSync('src/client/klant/payconiqPaymentStatusError.html');
+const toogHtml = fs.readFileSync('src/client/toog/toog.html');
 const klantJS = fs.readFileSync('src/client/js/klant.js');
+const toogJs = fs.readFileSync('src/client/js/toog.js');
 const style = fs.readFileSync('src/client/css/style.css');
+const toogStyle = fs.readFileSync('src/client/css/toog.css');
 const faviconPng = fs.readFileSync('src/client/img/logo.png');
 const cash = fs.readFileSync('src/client/img/cash.png');
 const payconiq = fs.readFileSync('src/client/img/payconiq_by_Bancontact-logo-app-pos.png');
@@ -36,6 +39,16 @@ const server = http.createServer((req, res) => {
     if (req.url === "/css/style.css") {
         res.setHeader("Content-Type", "text/css");
         res.write(style);
+        res.end();
+    }
+    if (req.url === "/js/toog.js") {
+        res.setHeader("Content-Type", "text/javascript");
+        res.write(toogJs);
+        res.end();
+    }
+    if (req.url === "/css/toog.css") {
+        res.setHeader("Content-Type", "text/css");
+        res.write(toogStyle);
         res.end();
     }
     if (req.url === "/favicon.ico" || req.url === "/img/logo.png") {
@@ -81,7 +94,8 @@ const server = http.createServer((req, res) => {
     if (req.url === "/placeOrder/payconiq") {
         req.on('data', function (data){
             console.log('new order payed with payconiq:',JSON.parse(data));
-            order = JSON.parse(data)
+            let order = JSON.parse(data)
+            addOrderToOrderList(order);
             let orderDetails = order[order.length-1]
             let payment = {
                 reference: orderDetails.timestamp,
@@ -142,6 +156,18 @@ const server = http.createServer((req, res) => {
     if (req.url === "/paymentResponseFromPayconiq") {
         req.on('data', function (data){
             console.log('Order response form payconiq:',JSON.parse(data));
+            res.end();
+        })
+    }
+    if(req.url === "/toog"){
+        res.setHeader("Content-Type", "text/html");
+        res.write(toogHtml);
+        res.end();
+    }
+    if (req.url === "/getOrders") {
+        req.on('data', function (data){
+            //TODO update payconiq payments statusses
+            res.write(JSON.stringify(orders))
             res.end();
         })
     }
