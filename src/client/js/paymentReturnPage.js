@@ -18,5 +18,24 @@ function paymentStatusPageLoad() {
 }
 
 function translatePaymentStatusForReturnPage(paymentStatus){
-    return paymentStatus
+    switch (paymentStatus) {
+        case '"SUCCEEDED"':
+            return "Succesvol"
+        case '"FAILED"':
+            return "Mislukt"
+        case '"PENDING"':
+            return "In Afwachting"
+        case '"IDENTIFIED"':
+            return "(Nog) Niet In Orde"
+        case '"AUTHORIZED"':
+            return "(Nog) Niet In Orde"
+        case '"AUTHORIZATION_FAILED"':
+            return "Autorisatie mislukt"
+        case '"CANCELLED"':
+            return "Geannuleerd"
+        case '"EXPIRED"':
+            return "Verlopen"
+        default:
+            return "Geen Gegevens"
+    }
 }
