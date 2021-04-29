@@ -17,6 +17,7 @@ const payconisPaymentStatusERROR = fs.readFileSync('src/client/klant/payconiqPay
 const toogHtml = fs.readFileSync('src/client/toog/toog.html');
 const klantJS = fs.readFileSync('src/client/js/klant.js');
 const toogJs = fs.readFileSync('src/client/js/toog.js');
+const paymentReturnPage = fs.readFileSync('src/client/js/paymentReturnPage.js');
 const style = fs.readFileSync('src/client/css/style.css');
 const toogStyle = fs.readFileSync('src/client/css/toog.css');
 const faviconPng = fs.readFileSync('src/client/img/logo.png');
@@ -45,6 +46,11 @@ const server = http.createServer((req, res) => {
     if (req.url === "/js/toog.js") {
         res.setHeader("Content-Type", "text/javascript");
         res.write(toogJs);
+        res.end();
+    }
+    if (req.url === "/js/paymentReturnPage.js") {
+        res.setHeader("Content-Type", "text/javascript");
+        res.write(paymentReturnPage);
         res.end();
     }
     if (req.url === "/css/toog.css") {
