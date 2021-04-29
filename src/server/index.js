@@ -12,7 +12,7 @@ const fs = require('fs');
 const klantHTML = fs.readFileSync('src/client/klant/klant.html');
 const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html');
 const orderReceived = fs.readFileSync('src/client/klant/orderReceived.html');
-const payconisPaymentStatusSUCCEEDED = fs.readFileSync('src/client/klant/payconiqPaymentStatusSucceeded.html');
+const payconisPaymentStatus = fs.readFileSync('src/client/klant/payconiqPaymentStatus.html');
 const payconisPaymentStatusERROR = fs.readFileSync('src/client/klant/payconiqPaymentStatusError.html');
 const toogHtml = fs.readFileSync('src/client/toog/toog.html');
 const klantJS = fs.readFileSync('src/client/js/klant.js');
@@ -129,6 +129,11 @@ const server = http.createServer((req, res) => {
         })
     }
     if (req.url.includes("/lookupOrder")) {
+        res.setHeader("Content-Type", "text/html");
+        res.write(payconisPaymentStatus);
+        res.end();
+    }
+    if (req.url.includes("/getPaymentStatus")) {
         let paymentReference = req.url.replace("/lookupOrder/",'');
         console.log('server is going to look for payconiq payment with reference: '+ paymentReference)
         const userAction = async () => {
@@ -144,13 +149,7 @@ const server = http.createServer((req, res) => {
             return payconiqResponseInJSON
         }
         userAction().then(payconiqResponseInJSON => {
-            res.setHeader("Content-Type", "text/html");
-            if(payconiqResponseInJSON.status === "SUCCEEDED"){
-                res.write(payconisPaymentStatusSUCCEEDED);
-            }else{
-                res.write(payconisPaymentStatusERROR);
-                console.error('error, payment not succeeded: '+JSON.stringify(payconiqResponseInJSON))
-            }
+            res.write(payconiqResponseInJSON.status)
             res.end();
         })
     }
