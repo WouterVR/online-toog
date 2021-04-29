@@ -149,7 +149,7 @@ const server = http.createServer((req, res) => {
             return payconiqResponseInJSON
         }
         userAction().then(payconiqResponseInJSON => {
-            res.write(payconiqResponseInJSON.status)
+            res.write(JSON.stringify(payconiqResponseInJSON.status))
             res.end();
         })
     }
