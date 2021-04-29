@@ -134,7 +134,7 @@ const server = http.createServer((req, res) => {
         res.end();
     }
     if (req.url.includes("/getPaymentStatus")) {
-        let paymentReference = req.url.replace("/lookupOrder/",'');
+        let paymentReference = req.url.replace("/getPaymentStatus/",'');
         console.log('server is going to look for payconiq payment with reference: '+ paymentReference)
         const userAction = async () => {
             const response = await fetch('https://api.ext.payconiq.com/v3/payments/'+paymentReference, {
@@ -192,7 +192,7 @@ const server = http.createServer((req, res) => {
                 let currentOrderInfo = currentOrder.pop() //details are removed!
                 let newCurrentOrderInfo = currentOrderInfo
 
-                if(currentOrderInfo.paymentMethod === "payconiq_by_bancontact" && !(currentOrderInfo.paymentStatus === "SUCCEEDED")){
+                if(currentOrderInfo.paymentMethod === "payconiq_by_bancontact" && !(currentOrderInfo.paymentStatus === "SUCCEEDED" && !(currentOrderInfo.finished))){
                     for(let paymentIndex in payments){
                         let currentPayment = payments[paymentIndex]
                         console.log('Comparing order: '+JSON.stringify(currentOrderInfo) +' with payment: '+JSON.stringify(currentPayment))
