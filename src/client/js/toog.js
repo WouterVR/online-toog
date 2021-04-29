@@ -90,10 +90,15 @@ function updateToogView(){
 
 function toggleOrderView(order){
     let orderInfo = order[order.length -1];
-    if($('#order-items-list-'+orderInfo.timestamp).attr("class")==="order-items-list closed"){
+    let orderItemsList = $('#order-items-list-'+orderInfo.timestamp)
+    if(orderItemsList.attr("class")==="order-items-list closed"){
         console.log('adding items form list of order with timestamp: '+ orderInfo.timestamp)
-        $('#order-items-list-'+orderInfo.timestamp).empty();
-        //TODO add remark
+        orderItemsList.empty();
+        if(!(orderInfo.remark === "")) {
+            let remark = document.createElement('p')
+            remark.append(document.createTextNode("Opmerking: " + orderInfo.remark))
+            orderItemsList.append(remark)
+        }
         let paymentStatus = document.createElement('h3')
         paymentStatus.setAttribute('id', 'paymentStatus-' + orderInfo.timestamp)
         let paymentStatusText
@@ -103,12 +108,12 @@ function toggleOrderView(order){
             paymentAmount.append(document.createTextNode("Totaal: €"+orderInfo.amount))
             paymentStatusText = "Betaling: cash"
             paymentStatus.append(document.createTextNode(paymentStatusText));
-            $('#order-items-list-'+orderInfo.timestamp).append(paymentAmount, paymentStatus);
+            orderItemsList.append(paymentAmount, paymentStatus);
         }
         else {
             paymentStatusText = translatePaymentStatus(orderInfo.paymentStatus)
             paymentStatus.append(document.createTextNode(paymentStatusText));
-            $('#order-items-list-' + orderInfo.timestamp).append(paymentStatus);
+            orderItemsList.append(paymentStatus);
         }
 
         for(let orderItemIndex in order){
