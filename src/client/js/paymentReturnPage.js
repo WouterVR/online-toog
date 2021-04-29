@@ -9,10 +9,14 @@ function paymentStatusPageLoad() {
         if (httpStatus === "success") {
             let statusTextView = $('#paymentStatus')
             statusTextView.empty()
-            statusTextView.append(document.createTextNode("Status van je betaling: " + translatePaymentStatus(paymentStatus)))
+            statusTextView.append(document.createTextNode("Status van je betaling: " + translatePaymentStatusForReturnPage(paymentStatus)))
         } else {
             alert("Error occured while retrieving payment status")
             console.error("Error occured while retrieving payment status")
         }
     })
+}
+
+function translatePaymentStatusForReturnPage(paymentStatus){
+    return paymentStatus
 }
