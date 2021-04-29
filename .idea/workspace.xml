@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/client/klant/payconiqPaymentStatusSucceeded.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/klant/payconiqPaymentStatusSucceeded.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/js/paymentReturnPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/klant/payconiqPaymentStatusSucceeded.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/klant/payconiqPaymentStatus.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +16,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -87,7 +90,7 @@
       <workItem from="1619550287564" duration="115000" />
       <workItem from="1619550433274" duration="11371000" />
       <workItem from="1619622767839" duration="16280000" />
-      <workItem from="1619713336607" duration="14088000" />
+      <workItem from="1619713336607" duration="14929000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -229,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619731049143</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Improved paymentstatus page">
+      <created>1619731996004</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1619731996004</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,6 +277,7 @@
     <MESSAGE value="Almost fully complete" />
     <MESSAGE value="Almost fully finished" />
     <MESSAGE value="remark added in toog view" />
-    <option name="LAST_COMMIT_MESSAGE" value="remark added in toog view" />
+    <MESSAGE value="Improved paymentstatus page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved paymentstatus page" />
   </component>
 </project>
