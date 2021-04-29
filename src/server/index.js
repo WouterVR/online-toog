@@ -2,6 +2,7 @@ const http = require('http')
 const https = require('https')
 const fetch = require("node-fetch");
 let path = require('path')
+let orders = [];
 
 //const port = process.env.PORT //not working?
 const port = process.env.PORT || 3001;
@@ -156,6 +157,7 @@ const server = http.createServer((req, res) => {
     if (req.url === "/paymentResponseFromPayconiq") {
         req.on('data', function (data){
             console.log('Order response form payconiq:',JSON.parse(data));
+            //TODO update the payment status of the order in the database
             res.end();
         })
     }
@@ -165,12 +167,75 @@ const server = http.createServer((req, res) => {
         res.end();
     }
     if (req.url === "/getOrders") {
-        req.on('data', function (data){
-            //TODO update payconiq payments statusses
+        const userAction = async () => {
+
+            let body = {
+                "paymentStatuses": [ "PENDING", "IDENTIFIED", "AUTHORIZED", "AUTHORIZATION_FAILED", "SUCCEEDED", "FAILED", "CANCELLED", "EXPIRED" ],
+            }
+
+            const response = await fetch('https://api.ext.payconiq.com/v3/payments/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + APIkey,
+                },
+                body: JSON.stringify(body)
+            });
+            const payconiqResponseInJSON = await response.json(); //extract JSON from the http response
+            console.log("List of payments: " + JSON.stringify(payconiqResponseInJSON))
+            return payconiqResponseInJSON
+        }
+        userAction().then(payconiqResponseInJSON => {
+            console.log('List of payments: ' + JSON.stringify(payconiqResponseInJSON))
+            let payments = payconiqResponseInJSON.details
+            for(let orderItemIndex in orders) {
+                let currentOrder = orders[orderItemIndex]
+                let currentOrderInfo = currentOrder.pop() //details are removed!
+                let newCurrentOrderInfo = currentOrderInfo
+
+                if(currentOrderInfo.paymentMethod === "payconiq_by_bancontact" && !currentOrderInfo.paymentStatus === "SUCCEEDED"){
+                    for(let paymentIndex in payments){
+                        let currentPayment = payments[paymentIndex]
+                        console.log('Comparing order: '+JSON.stringify(currentOrderInfo) +' with payment: '+JSON.stringify(currentPayment))
+                        if(currentPayment.reference === currentOrderInfo.timestamp.toString()){
+                            console.log('Updating staus of: '+ JSON.stringify(currentOrderInfo))
+                            newCurrentOrderInfo.paymentStatus = currentPayment.status
+                            break
+                        }
+                    }
+                }
+                currentOrder.push(newCurrentOrderInfo)
+                addOrderToOrderList(currentOrder)
+            }
+
+            console.log('ready, now sending the updated orders')
             res.write(JSON.stringify(orders))
             res.end();
         })
     }
+    if(req.url.includes("setPaymentReference")){
+        req.on('data',function (data){
+            let details = JSON.parse(data)
+            console.log('Paymentreference details: '+data)
+            //This line of code gets the element with name as the timestamp, then takes the last element of the array and adds paymentId equal to the received paymentReference
+            let concernedOrder = orders[details.timestamp]
+            let concernedOrderDetails = concernedOrder.pop()
+            concernedOrderDetails.paymentId = details.paymentReference
+            concernedOrder.push(concernedOrderDetails)
+            addOrderToOrderList(concernedOrder)
+        })
+    }
+    if(req.url.includes("orderFinished")){
+        let orderTimestamp = req.url.replace('/orderFinished/','')
+        let order =orders[orderTimestamp]
+        let orderDetails = order.pop()
+        let newOrderDetails = orderDetails
+        newOrderDetails.finished = true
+        order.push(newOrderDetails)
+        addOrderToOrderList(order)
+        res.end()
+    }
+
 
 })
 
@@ -207,8 +272,6 @@ firebase.initializeApp(firebaseConfig);
 
 const firestoreDatabase = firebase.firestore();
 const realtimeDatabase = firebase.database();
-
-let orders = [];
 
 realtimeDatabase.ref("orders").on("value", function(snapshot) {
     console.log(snapshot.val());

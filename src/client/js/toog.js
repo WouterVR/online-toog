@@ -1,11 +1,12 @@
 let orders
+let unfinishedOrders
 function toogPageLoad(){
     getOrdersAndUpdateToogView();
 }
 
 setInterval(function (){
-    updatePaymentStatusAndTime();
-}, 10000)
+    getOrdersAndUpdatePaymentStatusAndTime();
+}, 30000)
 
 function updateToogView(){
     //getOrders()
@@ -13,8 +14,8 @@ function updateToogView(){
     //klaarbutton -> bestelling is klaar
     let list = document.createElement('ul');
     list.setAttribute('class','item-list');
-    for (let orderIndex in orders){
-        let currentOrder = orders[orderIndex]
+    for (let orderIndex in unfinishedOrders){
+        let currentOrder = unfinishedOrders[orderIndex]
         let orderInfo = currentOrder[currentOrder.length-1] //last element contains order details
         let timeSinceOrder = (Date.now() - orderInfo.timestamp)/1000;
         if(timeSinceOrder < 3600){
@@ -160,12 +161,17 @@ function toggleOrderView(order){
 }
 
 function getOrdersAndUpdateToogView(){
-    //TODO fill with real orders
+    let main = $('#main')
+    main.empty()
+    let loader = document.createElement('div')
+    loader.setAttribute('class','loader')
+    main.append(loader)
     let url = '/getOrders'
     $.post(url, "getOrders", function (response, status){
         if(status === "success"){
             orders = JSON.parse(response);
             console.log('Received orders: '+ JSON.stringify(orders))
+            //Sorting from old to new
             let timestamps = Object.keys(orders)
             timestamps.sort(function (a,b) {return b-a})
             let sortedOrders =[]
@@ -176,52 +182,40 @@ function getOrdersAndUpdateToogView(){
 
             console.log('Sorted orders: '+ sortedOrders)
             orders = sortedOrders
+            unfinishedOrders = []
+            for(let order in orders){
+                let currentOrder = orders[order]
+                if(!currentOrder[currentOrder.length-1].finished) unfinishedOrders.push(currentOrder)
+            }
             updateToogView()
         }else{
             console.log('Something went wrong with retrieving the orders');
         }
     });
-    /*let order0 =
-            [{ amount: '1', name: 'Primus', pricePerItem: 1 },
-    { amount: '1', name: 'Kasteelbier Rouge', pricePerItem: 2 },
-    { amount: '1', name: 'Keizer Karel', pricePerItem: 2 },
-    { amount: '1', name: 'Duvel', pricePerItem: 2 },
-    { amount: '1', name: 'Grimbergen Blond', pricePerItem: 2 },
-    { amount: '1', name: 'Tongerlo blond', pricePerItem: 2 },
-    { amount: '1', name: 'Karmeliet', pricePerItem: 2 },
-    { amount: '1', name: 'Water plat', pricePerItem: 0 },
-    { amount: '1', name: 'Water bruis', pricePerItem: 1 },
-    { amount: '1', name: 'Fanta', pricePerItem: 1 },
-    { amount: '1', name: 'Cola', pricePerItem: 1 },
-    { amount: '1', name: 'Pepsi max', pricePerItem: 1 },
-    { amount: '1', name: 'IceTea', pricePerItem: 1 },
-    { amount: '1', name: 'IceTea Green', pricePerItem: 1 },
-    { finished: false,
-        payed: false,
-        paymentMethod: 'cash',
-        amount: 19,
-        remark: 'test',
-        tableNumber: '2',
-        timestamp: 1619647580000 } ]
-
-    let order1 =
-    [ { amount: '1', name: 'Primus', pricePerItem: 1 },
-        { finished: false,
-            payed: false,
-            paymentMethod: 'payconiq_by_bancontact',
-            paymentStatus:"SUCCEEDED",
-            amount: 1.06,
-            remark: '',
-            tableNumber: '1',
-            timestamp: 1619647558000} ]
-
-    orders.push(order0, order1);
-
-     */
-
 }
 
 function orderIsReadyButton(order){
+
+    let orderDetails = order.pop()
+    orderDetails.finished = true
+    order.push(orderDetails)
+
+    let el = $('#order-'+orderDetails.timestamp)
+    el.animate({opacity: '0'}, 150, function(){
+    el.animate({height: '0px'}, 150, function(){
+        for (var i = 0; i < unfinishedOrders.length; i++) {
+            if (unfinishedOrders[i][unfinishedOrders[i].length-1].timestamp === orderDetails.timestamp) {
+                unfinishedOrders.splice(i, 1);
+            }
+        }
+        updateToogView()
+        let url = "/orderFinished/"+orderDetails.timestamp
+        $.post(url, order, function (response, status){
+            if(status === "succes") console.log('succesfully sent the finish command for order: '+orderDetails.timestamp)
+            else console.error('something went wrong wiht sending the finish command for order: '+orderDetails.timestamp)
+        })
+    });
+});
 
 }
 
@@ -248,46 +242,65 @@ function translatePaymentStatus(paymentStatus){
     }
 }
 
-function updatePaymentStatusAndTime(){
-    getOrders();
-    for(let orderItemIndex in orders){
-        let currentOrder = orders[orderItemIndex]
-        let orderInfo = currentOrder[currentOrder.length-1] //last element contains order details
-
-        /// UPDATE THE TIME //
-        let timeSinceOrder = (Date.now() - orderInfo.timestamp)/1000;
-        if(timeSinceOrder < 3600){
-            //les then an hour ago
-            timeSinceOrder = Math.round(timeSinceOrder/60)
-            timeSinceOrder = timeSinceOrder.toString() + " min"
-        }else if(timeSinceOrder < 86400){
-            //more than an hour ago, but less than a day ago
-            timeSinceOrder = Math.round(timeSinceOrder/60/60)
-            timeSinceOrder = timeSinceOrder.toString() + " uur"
-        }else {
-            //more than a day ago
-            timeSinceOrder = ">1 dag"
-        }
-        let time = $("#item-time-"+orderInfo.timestamp)
-        time.empty()
-        time.append(document.createTextNode(timeSinceOrder))
-
-        /// UPDATE THE PAYMENT STATUS ///
-        if($('#order-items-list-'+orderInfo.timestamp).attr("class")==="order-items-list opened") {
-            let paymentStatus = $("#paymentStatus-" + orderInfo.timestamp)
-            paymentStatus.empty();
-            let paymentStatusText
-            if (orderInfo.paymentMethod === "cash") {
-                let paymentAmount = $('#paymentAmount-' + orderInfo.timestamp)
-                paymentAmount.empty()
-                paymentAmount.append(document.createTextNode("Totaal: €" + orderInfo.amount))
-                paymentStatusText = "Betaling: cash"
-                paymentStatus.append(document.createTextNode(paymentStatusText));
-            } else {
-                paymentStatusText = translatePaymentStatus(orderInfo.paymentStatus)
-                paymentStatus.append(document.createTextNode(paymentStatusText));
+function getOrdersAndUpdatePaymentStatusAndTime(){
+    let url = '/getOrders'
+    $.post(url, "getOrders", function (response, status){
+        if(status === "success"){
+            orders = JSON.parse(response);
+            console.log('Received orders: '+ JSON.stringify(orders))
+            //Sorting from old to new
+            let timestamps = Object.keys(orders)
+            timestamps.sort(function (a,b) {return b-a})
+            let sortedOrders =[]
+            let initialLength = timestamps.length
+            for(let i = 0; i<initialLength; i++){
+                sortedOrders.push(orders[timestamps.pop()])
             }
+
+            console.log('Sorted orders: '+ sortedOrders)
+            orders = sortedOrders
+            for(let orderItemIndex in orders){
+                let currentOrder = orders[orderItemIndex]
+                let orderInfo = currentOrder[currentOrder.length-1] //last element contains order details
+
+                /// UPDATE THE TIME //
+                let timeSinceOrder = (Date.now() - orderInfo.timestamp)/1000;
+                if(timeSinceOrder < 3600){
+                    //les then an hour ago
+                    timeSinceOrder = Math.round(timeSinceOrder/60)
+                    timeSinceOrder = timeSinceOrder.toString() + " min"
+                }else if(timeSinceOrder < 86400){
+                    //more than an hour ago, but less than a day ago
+                    timeSinceOrder = Math.round(timeSinceOrder/60/60)
+                    timeSinceOrder = timeSinceOrder.toString() + " uur"
+                }else {
+                    //more than a day ago
+                    timeSinceOrder = ">1 dag"
+                }
+                let time = $("#item-time-"+orderInfo.timestamp)
+                time.empty()
+                time.append(document.createTextNode(timeSinceOrder))
+
+                /// UPDATE THE PAYMENT STATUS ///
+                if($('#order-items-list-'+orderInfo.timestamp).attr("class")==="order-items-list opened") {
+                    let paymentStatus = $("#paymentStatus-" + orderInfo.timestamp)
+                    paymentStatus.empty();
+                    let paymentStatusText
+                    if (orderInfo.paymentMethod === "cash") {
+                        let paymentAmount = $('#paymentAmount-' + orderInfo.timestamp)
+                        paymentAmount.empty()
+                        paymentAmount.append(document.createTextNode("Totaal: €" + orderInfo.amount))
+                        paymentStatusText = "Betaling: cash"
+                        paymentStatus.append(document.createTextNode(paymentStatusText));
+                    } else {
+                        paymentStatusText = translatePaymentStatus(orderInfo.paymentStatus)
+                        paymentStatus.append(document.createTextNode(paymentStatusText));
+                    }
+                }
+            }
+        }else{
+            console.log('Something went wrong with retrieving the orders');
         }
-    }
+    });
 }
 

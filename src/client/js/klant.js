@@ -319,6 +319,11 @@ function backButton(){
 }
 
 function payWithPayconiq(){
+    let main = $('#main')
+    main.empty()
+    let loader = document.createElement('div')
+    loader.setAttribute('class','loader')
+    main.append(loader)
     //Check if the last item is already some order details. In this case delete that information
     if(order[order.length-1].payed !== undefined)  order.pop();
 
@@ -346,7 +351,19 @@ function payWithPayconiq(){
             var returnUrl = "?returnUrl=http://online-toog.jhdebem.be/lookupOrder/";  //TODO change this for production
             payconiqRedirectURL = deeplink.concat(returnUrl, paymentReference);
             console.log('pc redirectUrl: '+payconiqRedirectURL)
-            window.location.href = payconiqRedirectURL;
+            window.location.href = payconiqRedirectURL
+            let url = '/setPaymentReference'
+            let details = {
+                paymentReference: paymentReference,
+                timestamp: orderDetails.timestamp
+            }
+            $.post(url, JSON.stringify(details), function (response, status){
+                if(status ==="succes"){
+                    console.log('succesfully sent the paymentReference of order '+ orderDetails.timestamp)
+                }else{
+                    console.err("Something went wrong with sending the paymentReference of order "+orderDetails.timestamp)
+                }
+            })
         }else{
             console.log('Something went wrong with placing the order');
         }
