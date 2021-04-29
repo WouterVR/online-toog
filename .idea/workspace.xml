@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/client/js/paymentReturnPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/paymentReturnPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/klant/payconiqPaymentStatus.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/klant/payconiqPaymentStatus.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +88,7 @@
       <workItem from="1619550287564" duration="115000" />
       <workItem from="1619550433274" duration="11371000" />
       <workItem from="1619622767839" duration="16280000" />
-      <workItem from="1619713336607" duration="16314000" />
+      <workItem from="1619713336607" duration="16965000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -285,7 +286,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619733381624</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fix paymentstatus">
+      <created>1619733523376</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1619733523376</updated>
+    </task>
+    <task id="LOCAL-00030" summary="final V1">
+      <created>1619734032981</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1619734032981</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,7 +319,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Project startup and frontend start design klant" />
     <MESSAGE value="bit of progress in design of klant" />
     <MESSAGE value="design of first klant page done" />
     <MESSAGE value="design of second klant page 'bestelling controlleren' done" />
@@ -328,6 +342,8 @@
     <MESSAGE value="performance improvements" />
     <MESSAGE value="bug fixed" />
     <MESSAGE value="tryout" />
-    <option name="LAST_COMMIT_MESSAGE" value="tryout" />
+    <MESSAGE value="fix paymentstatus" />
+    <MESSAGE value="final V1" />
+    <option name="LAST_COMMIT_MESSAGE" value="final V1" />
   </component>
 </project>
