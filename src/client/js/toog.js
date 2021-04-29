@@ -9,9 +9,6 @@ setInterval(function (){
 }, 30000)
 
 function updateToogView(){
-    //getOrders()
-    //onclick -> openorder
-    //klaarbutton -> bestelling is klaar
     let list = document.createElement('ul');
     list.setAttribute('class','item-list');
     for (let orderIndex in unfinishedOrders){
@@ -96,6 +93,7 @@ function toggleOrderView(order){
     if($('#order-items-list-'+orderInfo.timestamp).attr("class")==="order-items-list closed"){
         console.log('adding items form list of order with timestamp: '+ orderInfo.timestamp)
         $('#order-items-list-'+orderInfo.timestamp).empty();
+        //TODO add remark
         let paymentStatus = document.createElement('h3')
         paymentStatus.setAttribute('id', 'paymentStatus-' + orderInfo.timestamp)
         let paymentStatusText
@@ -136,7 +134,7 @@ function toggleOrderView(order){
             let itemPrice = document.createElement('span');
             itemPrice.append(document.createTextNode(orderItem.pricePerItem+ ' euro'));
             itemEuroPrice.append(times2, x2, itemPrice);
-            itemTimesAndName.append(itemName,itemEuroPrice);
+            itemTimesAndName.append(itemName);
 
             let itemAmountButtons = document.createElement('div');
             itemAmountButtons.setAttribute('class', 'item-amount-buttons');
@@ -195,7 +193,6 @@ function getOrdersAndUpdateToogView(){
 }
 
 function orderIsReadyButton(order){
-
     let orderDetails = order.pop()
     orderDetails.finished = true
     order.push(orderDetails)
@@ -222,23 +219,23 @@ function orderIsReadyButton(order){
 function translatePaymentStatus(paymentStatus){
     switch (paymentStatus) {
         case "SUCCEEDED":
-            return "Betaling: succesvol"
+            return "Betaling: Succesvol"
         case "FAILED":
-            return "Betaling: mislukt"
+            return "Betaling: Mislukt"
         case "PENDING":
-            return "Betaling: in afwachting"
+            return "Betaling: In Afwachting"
         case "IDENTIFIED":
-            return  "Betaling: geïdentificeerd"
+            return "Betaling: (Nog) Niet In Orde"
         case "AUTHORIZED":
-            return "Betaling: geautoriseerd"
+            return "Betaling: (Nog) Niet In Orde"
         case "AUTHORIZATION_FAILED":
-            return "Betaling: autorisatie mislukt"
+            return "Betaling: Autorisatie mislukt"
         case "CANCELLED":
-            return "Betaling: geannuleerd"
+            return "Betaling: Geannuleerd"
         case "EXPIRED":
-            return "Betaling: verlopen"
+            return "Betaling: Verlopen"
         default:
-            return "Betaling: geen gegevens"
+            return "Betaling: Geen Gegevens"
     }
 }
 

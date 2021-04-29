@@ -57,9 +57,6 @@ input[type=text], select {
 .item-container {
     margin: auto;
     padding: 5px;
-    border-color: black;
-    border-width: 2px;
-    border-radius: 25px;
     width: max-content;
     display: flex;
     justify-content: space-between;
@@ -108,8 +105,9 @@ input[type=text], select {
 }
 
 .item-times-name {
-    width: 125px;
+    width: 150px;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 span {

@@ -254,9 +254,9 @@ function addItem(item){
     for(let menuItemId in menu){
         if(menu[menuItemId].name === item){
             let amountOfItemText = document.getElementById('amountSelected-'+menu[menuItemId].name);
-            let newValue = parseInt(amountOfItemText.childNodes[0].nodeValue)+1;
+            let newValue = parseFloat(amountOfItemText.childNodes[0].nodeValue)+1;
             if(newValue>99) return;
-            totalPrice = parseInt(totalPrice) + parseInt(menu[menuItemId].price);
+            totalPrice = parseFloat(totalPrice) + parseFloat(menu[menuItemId].price);
             updateTotalPrice()
             amountOfItemText.childNodes[0].nodeValue= newValue.toString(); //add one to the existing value
         }
@@ -268,7 +268,7 @@ function removeItem(item){
     for(let menuItemId in menu){
         if(menu[menuItemId].name === item){
             let amountOfItemText = document.getElementById('amountSelected-'+menu[menuItemId].name)
-            let newValue = parseInt(amountOfItemText.childNodes[0].nodeValue)-1;
+            let newValue = parseFloat(amountOfItemText.childNodes[0].nodeValue)-1;
             if(newValue<0) return;
             totalPrice = totalPrice - menu[menuItemId].price;
             updateTotalPrice()

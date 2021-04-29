@@ -193,7 +193,7 @@ const server = http.createServer((req, res) => {
                 let currentOrderInfo = currentOrder.pop() //details are removed!
                 let newCurrentOrderInfo = currentOrderInfo
 
-                if(currentOrderInfo.paymentMethod === "payconiq_by_bancontact" && !currentOrderInfo.paymentStatus === "SUCCEEDED"){
+                if(currentOrderInfo.paymentMethod === "payconiq_by_bancontact" && !(currentOrderInfo.paymentStatus === "SUCCEEDED")){
                     for(let paymentIndex in payments){
                         let currentPayment = payments[paymentIndex]
                         console.log('Comparing order: '+JSON.stringify(currentOrderInfo) +' with payment: '+JSON.stringify(currentPayment))
