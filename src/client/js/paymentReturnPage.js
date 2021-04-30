@@ -14,7 +14,7 @@ function paymentStatusPageLoad() {
                 $('#extra-text').empty()
                 let textDiv = $('#order-received-div')
                 let text = "Herlaad de pagina om de status van de betaling te vernieuwen. Indien de betaling niet gelukt is, kan je gewoon cash betalen!"
-                let p = document.createElement('span')
+                let p = document.createElement('p')
                 p.setAttribute('id','extra-text')
                 p.append(document.createTextNode(text))
                 textDiv.append(p)

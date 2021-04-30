@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="" />
+    <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/client/js/paymentReturnPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/paymentReturnPage.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +89,7 @@
       <workItem from="1619622767839" duration="16280000" />
       <workItem from="1619713336607" duration="17305000" />
       <workItem from="1619796711364" duration="6411000" />
-      <workItem from="1619820465003" duration="3832000" />
+      <workItem from="1619820465003" duration="4211000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -355,7 +357,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619824129138</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="test for paymentReturnPage.js">
+      <created>1619824546577</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1619824546577</updated>
+    </task>
+    <task id="LOCAL-00040" summary="test for paymentReturnPage.js">
+      <created>1619824675495</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1619824675495</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -374,7 +390,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor bugs fixed" />
     <MESSAGE value="betaaloptie scherm toegevoegd en cash betaalmethode afgemaakt" />
     <MESSAGE value="Payconiq implementation start + minor changes" />
     <MESSAGE value="Payconiq werkt!! bijna perfect" />
@@ -399,6 +414,7 @@
     <MESSAGE value="category implementation" />
     <MESSAGE value="code improvement" />
     <MESSAGE value="20 tables possible" />
-    <option name="LAST_COMMIT_MESSAGE" value="20 tables possible" />
+    <MESSAGE value="test for paymentReturnPage.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="test for paymentReturnPage.js" />
   </component>
 </project>
