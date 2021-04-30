@@ -8,13 +8,11 @@ function klantPageLoad(){
     console.log("url: "+ window.location.href)
     if(window.location.href.includes('tafel')) {
         console.log("url contains table nr")
-        tableNumber = parseInt(window.location.href.replace("http://localhost:3001/tafel/", ""))
+        tableNumber = parseInt(window.location.href.replace("http://online-toog.jhdebem.be/tafel/", ""))
         console.log("tablenr = "+tableNumber)
     }
     fillMenuAndView();
     updateTotalPrice();
-    //TODO: change this for in production
-    //tableNumber = window.location.href.replace("http://online-toog.jhdebem.be/", "")
 
 
 }
