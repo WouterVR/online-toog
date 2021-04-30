@@ -375,8 +375,8 @@ function continueButton(){
 
 function payButton(){
     tableNumber = $('#tableNumber').val();
-    if(tableNumber<= 0 || tableNumber >=10){
-        alert('Gelieve een tafelnummer tussen 1 en 10 in te vulen.');
+    if(tableNumber<= 0 || tableNumber >=20){
+        alert('Gelieve een tafelnummer tussen 1 en 20 in te vulen.');
         return;
     }
     remark = $('#remark').val();
