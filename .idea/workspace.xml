@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/js/klant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/klant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/klant/klant.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/klant/klant.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/js/toog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/toog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +91,7 @@
       <workItem from="1619622767839" duration="16280000" />
       <workItem from="1619713336607" duration="17305000" />
       <workItem from="1619796711364" duration="6411000" />
-      <workItem from="1619820465003" duration="1585000" />
+      <workItem from="1619820465003" duration="3132000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -333,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619822046847</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="code improvement">
+      <created>1619822110462</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1619822110462</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,7 +357,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor layout update and database startup" />
     <MESSAGE value="klant finished alles normaal gezien" />
     <MESSAGE value="minor bugs fixed" />
     <MESSAGE value="betaaloptie scherm toegevoegd en cash betaalmethode afgemaakt" />
@@ -377,6 +381,7 @@
     <MESSAGE value="automatically fill table number depending on url" />
     <MESSAGE value="minor change in url for production" />
     <MESSAGE value="category implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="category implementation" />
+    <MESSAGE value="code improvement" />
+    <option name="LAST_COMMIT_MESSAGE" value="code improvement" />
   </component>
 </project>

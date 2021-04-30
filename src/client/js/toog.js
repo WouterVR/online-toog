@@ -11,6 +11,15 @@ setInterval(function (){
 function updateToogView(){
     let list = document.createElement('ul');
     list.setAttribute('class','item-list');
+
+    if(unfinishedOrders.length === 0){
+        let noNewOrders = document.createElement('h3')
+        noNewOrders.append(document.createTextNode("Geen nieuwe bestellingen"))
+        list.append(noNewOrders)
+        $('#main').empty()
+        $('#main').append(list);
+        return;
+    }
     for (let orderIndex in unfinishedOrders){
         let currentOrder = unfinishedOrders[orderIndex]
         let orderInfo = currentOrder[currentOrder.length-1] //last element contains order details
@@ -258,48 +267,9 @@ function getOrdersAndUpdatePaymentStatusAndTime(){
             for(let i = 0; i<initialLength; i++){
                 sortedOrders.push(orders[timestamps.pop()])
             }
-
             console.log('Sorted orders: '+ sortedOrders)
             orders = sortedOrders
-            for(let orderItemIndex in orders){
-                let currentOrder = orders[orderItemIndex]
-                let orderInfo = currentOrder[currentOrder.length-1] //last element contains order details
-
-                /// UPDATE THE TIME //
-                let timeSinceOrder = (Date.now() - orderInfo.timestamp)/1000;
-                if(timeSinceOrder < 3600){
-                    //les then an hour ago
-                    timeSinceOrder = Math.round(timeSinceOrder/60)
-                    timeSinceOrder = timeSinceOrder.toString() + " min"
-                }else if(timeSinceOrder < 86400){
-                    //more than an hour ago, but less than a day ago
-                    timeSinceOrder = Math.round(timeSinceOrder/60/60)
-                    timeSinceOrder = timeSinceOrder.toString() + " uur"
-                }else {
-                    //more than a day ago
-                    timeSinceOrder = ">1 dag"
-                }
-                let time = $("#item-time-"+orderInfo.timestamp)
-                time.empty()
-                time.append(document.createTextNode(timeSinceOrder))
-
-                /// UPDATE THE PAYMENT STATUS ///
-                if($('#order-items-list-'+orderInfo.timestamp).attr("class")==="order-items-list opened") {
-                    let paymentStatus = $("#paymentStatus-" + orderInfo.timestamp)
-                    paymentStatus.empty();
-                    let paymentStatusText
-                    if (orderInfo.paymentMethod === "cash") {
-                        let paymentAmount = $('#paymentAmount-' + orderInfo.timestamp)
-                        paymentAmount.empty()
-                        paymentAmount.append(document.createTextNode("Totaal: €" + orderInfo.amount))
-                        paymentStatusText = "Betaling: cash"
-                        paymentStatus.append(document.createTextNode(paymentStatusText));
-                    } else {
-                        paymentStatusText = translatePaymentStatus(orderInfo.paymentStatus)
-                        paymentStatus.append(document.createTextNode(paymentStatusText));
-                    }
-                }
-            }
+            updateToogView()
         }else{
             console.log('Something went wrong with retrieving the orders');
         }

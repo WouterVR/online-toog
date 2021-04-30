@@ -311,7 +311,6 @@ function orderReceivedView(){
     $('#footer').empty();
 }
 
-
 function updateTotalPrice(){
     document.getElementById('total').childNodes[0].nodeValue = totalPrice.toString();
 }

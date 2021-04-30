@@ -173,11 +173,9 @@ const server = http.createServer((req, res) => {
     }
     if (req.url === "/getOrders") {
         const userAction = async () => {
-
             let body = {
                 "paymentStatuses": [ "PENDING", "IDENTIFIED", "AUTHORIZED", "AUTHORIZATION_FAILED", "SUCCEEDED", "FAILED", "CANCELLED", "EXPIRED" ],
             }
-
             const response = await fetch('https://api.ext.payconiq.com/v3/payments/search', {
                 method: 'POST',
                 headers: {
@@ -290,7 +288,7 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
 }, function (errorObject) {
     console.log("The read failed: " + errorObject);
 });
-/*
+
 fillMenu()
 function fillMenu(){
     let bieren = []
@@ -336,7 +334,7 @@ function fillMenu(){
 
 }
 
- */
+
 function addOrderToOrderList(order){
     let orderTimestamp = order[order.length-1].timestamp
     realtimeDatabase.ref("orders/" + orderTimestamp).set(order).then(r  => console.log('data successfully set'));
