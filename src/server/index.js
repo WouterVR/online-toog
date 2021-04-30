@@ -240,8 +240,6 @@ const server = http.createServer((req, res) => {
         addOrderToOrderList(order)
         res.end()
     }
-
-
 })
 
 server.listen(port, () => {
@@ -292,6 +290,52 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
 }, function (errorObject) {
     console.log("The read failed: " + errorObject);
 });
+
+fillMenu()
+function fillMenu(){
+    let bieren = []
+    //fill bieren
+    let bier0 = { availability: true, name: 'Primus', price: 1 }
+    let bier1 = { availability: true, name: 'Kasteelbier Rouge', price: 2 }
+    let bier2= { availability: true, name: 'Keizer Karel', price: 2 }
+    let bier3= { availability: true, name: 'Duvel', price: 2 }
+    let bier4= { availability: true, name: 'Grimbergen Blond', price: 2 }
+    let bier5=  { availability: true, name: 'Tongerlo blond', price: 2 }
+    let bier6 = { availability: true, name: 'Karmeliet', price: 2 }
+
+    bieren.push(bier0,bier5, bier6, bier3, bier2, bier4,bier2);
+
+    let fris0 = { availability: true, name: 'Water plat', price: 0 }
+    let fris1 = { availability: true, name: 'Water bruis', price: 1 }
+    let fris2 ={ availability: true, name: 'Fanta', price: 1 }
+    let fris3 = { availability: true, name: 'Cola', price: 1 }
+    let fris4 = { availability: true, name: 'Pepsi max', price: 1 }
+    let fris5 = { availability: true, name: 'IceTea', price: 1 }
+    let fris6 = { availability: true, name: 'IceTea Green', price: 1 }
+
+    let fris = []
+    fris.push(fris0,fris1,fris6,fris5,fris2,fris3,fris4);
+
+    let snacks = []
+
+    let snack1 = { availability: true, name: 'Aïki Chicken', price: 2.5 }
+    let snack2 ={ availability: true, name: 'Aïki Curry', price: 2.5 }
+    let snack3 ={ availability: true, name: 'Aïki BBQ', price: 2.5 }
+    let snack4 ={ availability: true, name: 'Aïki Hot&Spicy', price: 2.5 }
+    let snack5 ={ availability: true, name: 'Chips Zout', price: 1 }
+    let snack6 ={ availability: true, name: 'Chips Paprika', price: 1 }
+
+    snacks.push(snack1,snack2,snack3,snack4,snack5,snack6);
+
+    menu = {
+        "Bieren": bieren,
+        "Fris": fris,
+        "Snacks":snacks
+    }
+    realtimeDatabase.ref("menu").set(menu).then(r  => console.log('data successfully set'));
+
+}
+
 
 function addOrderToOrderList(order){
     let orderTimestamp = order[order.length-1].timestamp

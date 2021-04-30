@@ -22,7 +22,7 @@ function fillMenuAndView(){
     $.post(url, "give me the menu plz", function (data, status){
         if(status === "success"){
             menu = JSON.parse(data);
-            console.log('http status response 200 OK, menu: '+ menu);
+            console.log('http status response 200 OK, menu: '+ data);
             setPlaceOrderView();
         }else{
             console.log('Something went wrong with receiving the menu');
@@ -31,66 +31,106 @@ function fillMenuAndView(){
 }
 
 function setPlaceOrderView() {
-    let list = document.createElement('ul');
-    list.setAttribute('class','item-list');
-
-    for(let menuItem in menu){
-        if(menu[menuItem].availability) {
-            console.log('item: ', menu[menuItem]['name']);
-            let listItem = document.createElement('li');
-
-            let itemContainer = document.createElement('div');
-            itemContainer.setAttribute('class', "item-container");
-            let itemNamePrice = document.createElement('div');
-            itemNamePrice.setAttribute('class', "item-name-price");
-            let itemName = document.createElement('p');
-            itemName.setAttribute('class', "item-name");
-            itemName.setAttribute('id', "item-name-" + menu[menuItem].name);
-            itemName.append(document.createTextNode(menu[menuItem].name));
-            let itemEuroPrice = document.createElement('div');
-            itemEuroPrice.setAttribute("class", "item-€-price");
-            let euroSign = document.createElement('span');
-            euroSign.append(document.createTextNode('€'));
-            let priceSpan = document.createElement('span');
-            priceSpan.setAttribute('id', 'item-price-' + menu[menuItem].name);
-            priceSpan.append(document.createTextNode(menu[menuItem].price));
-            itemEuroPrice.append(euroSign);
-            itemEuroPrice.append(priceSpan);
-            itemNamePrice.append(itemName);
-            itemNamePrice.append(itemEuroPrice);
-            let itemAmountButtons = document.createElement('div');
-            itemAmountButtons.setAttribute('class', "item-amount-buttons");
-            let amountSelected = document.createElement('span');
-            amountSelected.setAttribute('id', 'amountSelected-' + menu[menuItem].name);
-            amountSelected.append(document.createTextNode('0'));
-            let removeButton = document.createElement('span');
-            removeButton.setAttribute('class', 'mdc-icon-button material-icons');
-            removeButton.setAttribute('id', 'remove-button-' + menu[menuItem].name);
-            removeButton.append(document.createTextNode('remove_circle'));
-            let addButton = document.createElement('span');
-            addButton.setAttribute('class', 'mdc-icon-button material-icons');
-            addButton.setAttribute('id', 'add-button-' + menu[menuItem].name);
-            addButton.append(document.createTextNode('add_circle'));
-            itemAmountButtons.append(amountSelected);
-            itemAmountButtons.append(removeButton);
-            itemAmountButtons.append(addButton);
-            itemContainer.append(itemNamePrice);
-            itemContainer.append(itemAmountButtons);
-
-            listItem.append(itemContainer);
-
-
-            list.append(listItem);
-        }
-    }
-
     $('#main').empty()
-    $('#main').append(list);
+    for(let category in menu) {
+        let currentCategory = menu[category];
 
-    for(let menuItemId in menu){
-        console.log('settign button onclick for '+menu[menuItemId].name);
-        document.getElementById('add-button-'+menu[menuItemId].name).onclick = function() {addItem(menu[menuItemId].name);};
-        document.getElementById('remove-button-'+menu[menuItemId].name).onclick = function() {removeItem(menu[menuItemId].name);};
+        let categoryDiv = document.createElement('div')
+        categoryDiv.setAttribute('class', 'category-div-'+category)
+        categoryDiv.setAttribute('id', 'category-div-'+category+ ' opened')
+
+        let itemContainer = document.createElement('div');
+        itemContainer.setAttribute('class', "item-container");
+
+        let itemNamePrice = document.createElement('div');
+        itemNamePrice.setAttribute('class', "item-name-price");
+        let itemName = document.createElement('p');
+        itemName.setAttribute('class', "category-name");
+        itemName.setAttribute('id', "category-" + category);
+        itemName.append(document.createTextNode(category));
+        itemNamePrice.append(itemName);
+
+        let itemAmountButtons = document.createElement('div');
+        itemAmountButtons.setAttribute('class', "category-button");
+        let dropDownButton = document.createElement('span');
+        dropDownButton.setAttribute('class', 'mdc-icon-button material-icons');
+        dropDownButton.setAttribute('id', 'dropDown-button-' + category);
+        dropDownButton.onclick = function () {
+            toggleCategory(category);
+        };
+        dropDownButton.append(document.createTextNode('arrow_drop_down'));
+        itemAmountButtons.append(dropDownButton);
+        itemContainer.append(itemNamePrice);
+        itemContainer.append(itemAmountButtons);
+        categoryDiv.append(itemContainer);
+
+        let list = document.createElement('ul');
+        list.setAttribute('class', 'item-list list-opened');
+        list.setAttribute('id', 'item-list-'+category);
+
+        for (let menuItem in currentCategory) {
+            if (currentCategory[menuItem].availability) {
+                console.log('item: ', currentCategory[menuItem]['name']);
+                let listItem = document.createElement('li');
+
+                let itemContainer = document.createElement('div');
+                itemContainer.setAttribute('class', "item-container");
+                let itemNamePrice = document.createElement('div');
+                itemNamePrice.setAttribute('class', "item-name-price");
+                let itemName = document.createElement('p');
+                itemName.setAttribute('class', "item-name");
+                itemName.setAttribute('id', "item-name-" + currentCategory[menuItem].name);
+                itemName.append(document.createTextNode(currentCategory[menuItem].name));
+                let itemEuroPrice = document.createElement('div');
+                itemEuroPrice.setAttribute("class", "item-€-price");
+                let euroSign = document.createElement('span');
+                euroSign.append(document.createTextNode('€'));
+                let priceSpan = document.createElement('span');
+                priceSpan.setAttribute('id', 'item-price-' + currentCategory[menuItem].name);
+                priceSpan.append(document.createTextNode(currentCategory[menuItem].price));
+                itemEuroPrice.append(euroSign);
+                itemEuroPrice.append(priceSpan);
+                itemNamePrice.append(itemName);
+                itemNamePrice.append(itemEuroPrice);
+                let itemAmountButtons = document.createElement('div');
+                itemAmountButtons.setAttribute('class', "item-amount-buttons");
+                let amountSelected = document.createElement('span');
+                amountSelected.setAttribute('id', 'amountSelected-' + currentCategory[menuItem].name);
+                amountSelected.append(document.createTextNode('0'));
+                let removeButton = document.createElement('span');
+                removeButton.setAttribute('class', 'mdc-icon-button material-icons');
+                removeButton.setAttribute('id', 'remove-button-' + currentCategory[menuItem].name);
+                removeButton.append(document.createTextNode('remove_circle'));
+                let addButton = document.createElement('span');
+                addButton.setAttribute('class', 'mdc-icon-button material-icons');
+                addButton.setAttribute('id', 'add-button-' + currentCategory[menuItem].name);
+                addButton.append(document.createTextNode('add_circle'));
+                itemAmountButtons.append(amountSelected);
+                itemAmountButtons.append(removeButton);
+                itemAmountButtons.append(addButton);
+                itemContainer.append(itemNamePrice);
+                itemContainer.append(itemAmountButtons);
+
+                listItem.append(itemContainer);
+
+
+                list.append(listItem);
+            }
+        }
+        categoryDiv.append(list)
+        $('#main').append(categoryDiv);
+
+        for (let menuItemId in currentCategory) {
+            if (currentCategory[menuItemId].availability) {
+                console.log('settign button onclick for ' + currentCategory[menuItemId].name);
+                document.getElementById('add-button-' + currentCategory[menuItemId].name).onclick = function () {
+                    addItem(currentCategory[menuItemId].name);
+                };
+                document.getElementById('remove-button-' + currentCategory[menuItemId].name).onclick = function () {
+                    removeItem(currentCategory[menuItemId].name);
+                };
+            }
+        }
     }
 
     /** FOOTER */
@@ -114,6 +154,21 @@ function setPlaceOrderView() {
     $('#footer').empty();
     $('#footer').append(totalDiv, spaceBetweenDiv, button)
 
+}
+
+function toggleCategory(category){
+    let catList = document.getElementById('item-list-'+category)
+    if(catList.getAttribute('class')=== 'item-list list-opened') {
+        catList.style.display ='none'
+        catList.setAttribute('class','item-list list-closed')
+        let dropdownButton = document.getElementById('dropDown-button-' + category)
+        dropdownButton.setAttribute('style','transform: rotate(90deg)')
+    }else{
+        catList.style.display = "block"
+        catList.setAttribute('class','item-list list-opened')
+        let dropdownButton = document.getElementById('dropDown-button-' + category)
+        dropdownButton.setAttribute('style','transform: rotate(0deg)')
+    }
 }
 
 function setOrderDetailsView(){
@@ -263,43 +318,53 @@ function updateTotalPrice(){
 
 function addItem(item){
     console.log('add item: '+item);
-    for(let menuItemId in menu){
-        if(menu[menuItemId].name === item){
-            let amountOfItemText = document.getElementById('amountSelected-'+menu[menuItemId].name);
-            let newValue = parseFloat(amountOfItemText.childNodes[0].nodeValue)+1;
-            if(newValue>99) return;
-            totalPrice = parseFloat(totalPrice) + parseFloat(menu[menuItemId].price);
-            updateTotalPrice()
-            amountOfItemText.childNodes[0].nodeValue= newValue.toString(); //add one to the existing value
+    for (let category in menu){
+        let currentCategory = menu[category];
+        for(let menuItemId in currentCategory){
+            if(currentCategory[menuItemId].name === item){
+                let amountOfItemText = document.getElementById('amountSelected-'+currentCategory[menuItemId].name);
+                let newValue = parseFloat(amountOfItemText.childNodes[0].nodeValue)+1;
+                if(newValue>99) return;
+                totalPrice = parseFloat(totalPrice) + parseFloat(currentCategory[menuItemId].price);
+                updateTotalPrice()
+                amountOfItemText.childNodes[0].nodeValue= newValue.toString(); //add one to the existing value
+            }
         }
     }
+
 }
 
 function removeItem(item){
     console.log('remove item: '+item)
-    for(let menuItemId in menu){
-        if(menu[menuItemId].name === item){
-            let amountOfItemText = document.getElementById('amountSelected-'+menu[menuItemId].name)
-            let newValue = parseFloat(amountOfItemText.childNodes[0].nodeValue)-1;
-            if(newValue<0) return;
-            totalPrice = totalPrice - menu[menuItemId].price;
-            updateTotalPrice()
-            amountOfItemText.childNodes[0].nodeValue= newValue.toString() //add one to the existing value
+    for (let category in menu) {
+        let currentCategory = menu[category];
+        for (let menuItemId in currentCategory) {
+            if (currentCategory[menuItemId].name === item) {
+                let amountOfItemText = document.getElementById('amountSelected-' + currentCategory[menuItemId].name)
+                let newValue = parseFloat(amountOfItemText.childNodes[0].nodeValue) - 1;
+                if (newValue < 0) return;
+                totalPrice = totalPrice - currentCategory[menuItemId].price;
+                updateTotalPrice()
+                amountOfItemText.childNodes[0].nodeValue = newValue.toString() //add one to the existing value
+            }
         }
     }
 }
 
 function continueButton(){
     order = [];
-    for(let menuItemId in menu){
-        let amountOfItemText = document.getElementById('amountSelected-'+menu[menuItemId].name).childNodes[0].nodeValue;
-        if(amountOfItemText>0){
-            let orderItem = {
-                name: menu[menuItemId].name,
-                amount: amountOfItemText,
-                pricePerItem: menu[menuItemId].price
+    for (let category in menu) {
+        let currentCategory = menu[category];
+        for (let menuItemId in currentCategory) {
+            let amountOfItemText = document.getElementById('amountSelected-' + currentCategory[menuItemId].name).childNodes[0].nodeValue;
+            if (amountOfItemText > 0) {
+                let orderItem = {
+                    name: currentCategory[menuItemId].name,
+                    amount: amountOfItemText,
+                    pricePerItem: currentCategory[menuItemId].price
+                }
+                order.push(orderItem);
             }
-            order.push(orderItem);
         }
     }
     if(order.length === 0){
