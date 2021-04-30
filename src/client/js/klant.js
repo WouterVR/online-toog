@@ -5,8 +5,18 @@ let tableNumber = 0;
 let remark = ''
 
 function klantPageLoad(){
+    console.log("url: "+ window.location.href)
+    if(window.location.href.includes('tafel')) {
+        console.log("url contains table nr")
+        tableNumber = parseInt(window.location.href.replace("http://localhost:3001/tafel/", ""))
+        console.log("tablenr = "+tableNumber)
+    }
     fillMenuAndView();
     updateTotalPrice();
+    //TODO: change this for in production
+    //tableNumber = window.location.href.replace("http://online-toog.jhdebem.be/", "")
+
+
 }
 
 function fillMenuAndView(){
@@ -117,7 +127,11 @@ function setOrderDetailsView(){
     tableNumberLabel.append(document.createTextNode('Tafel nummer:'));
     let inputNumber = document.createElement('input');
     inputNumber.setAttribute('type','number');
-    inputNumber.setAttribute('placeholder','Nr.');
+    if(tableNumber === 0) {
+        inputNumber.setAttribute('placeholder', 'Nr.');
+    }else{
+        inputNumber.value = tableNumber
+    }
     inputNumber.setAttribute('id','tableNumber');
     let remarks = document.createElement('input');
     remarks.setAttribute('type','text');

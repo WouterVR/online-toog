@@ -28,7 +28,7 @@ const payconiq = fs.readFileSync('src/client/img/payconiq_by_Bancontact-logo-app
 const server = http.createServer((req, res) => {
     console.log("New http request with url: " + req.url);
     res.statusCode = 200
-    if (req.url === "/") {
+    if (req.url === "/" || req.url.includes('tafel')) {
         res.setHeader("Content-Type", "text/html");
         res.write(klantHTML);
         res.end();
