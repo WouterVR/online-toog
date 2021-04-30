@@ -290,7 +290,7 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
 }, function (errorObject) {
     console.log("The read failed: " + errorObject);
 });
-
+/*
 fillMenu()
 function fillMenu(){
     let bieren = []
@@ -303,7 +303,7 @@ function fillMenu(){
     let bier5=  { availability: true, name: 'Tongerlo blond', price: 2 }
     let bier6 = { availability: true, name: 'Karmeliet', price: 2 }
 
-    bieren.push(bier0,bier5, bier6, bier3, bier2, bier4,bier2);
+    bieren.push(bier0,bier5, bier6, bier3, bier1, bier4,bier2);
 
     let fris0 = { availability: true, name: 'Water plat', price: 0 }
     let fris1 = { availability: true, name: 'Water bruis', price: 1 }
@@ -336,7 +336,7 @@ function fillMenu(){
 
 }
 
-
+ */
 function addOrderToOrderList(order){
     let orderTimestamp = order[order.length-1].timestamp
     realtimeDatabase.ref("orders/" + orderTimestamp).set(order).then(r  => console.log('data successfully set'));

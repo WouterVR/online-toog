@@ -93,7 +93,7 @@
       <workItem from="1619622767839" duration="16280000" />
       <workItem from="1619713336607" duration="17305000" />
       <workItem from="1619796711364" duration="6411000" />
-      <workItem from="1619820465003" duration="832000" />
+      <workItem from="1619820465003" duration="1585000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -326,7 +326,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619797454744</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="category implementation">
+      <created>1619822046847</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1619822046847</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,7 +352,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="design of second klant page 'bestelling controlleren' done" />
     <MESSAGE value="minor layout update and database startup" />
     <MESSAGE value="klant finished alles normaal gezien" />
     <MESSAGE value="minor bugs fixed" />
@@ -370,6 +376,7 @@
     <MESSAGE value="final V1" />
     <MESSAGE value="automatically fill table number depending on url" />
     <MESSAGE value="minor change in url for production" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor change in url for production" />
+    <MESSAGE value="category implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="category implementation" />
   </component>
 </project>
