@@ -23,3 +23,14 @@ h3 {
     margin: 0;
     padding: 10px;
 }
+
+p {
+    margin: 0;
+    padding: 10px;
+}
+
+.orderInfo-and-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

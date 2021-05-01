@@ -13,8 +13,6 @@ function klantPageLoad(){
     }
     fillMenuAndView();
     updateTotalPrice();
-
-
 }
 
 function fillMenuAndView(){

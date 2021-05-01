@@ -24,7 +24,7 @@ function updateToogView(){
         let currentOrder = unfinishedOrders[orderIndex]
         let orderInfo = currentOrder[currentOrder.length-1] //last element contains order details
         let timeSinceOrder = (Date.now() - orderInfo.timestamp)/1000;
-        if(timeSinceOrder < 3600){
+        if(timeSinceOrder < 3500){
             //les then an hour ago
             timeSinceOrder = Math.round(timeSinceOrder/60)
             timeSinceOrder = timeSinceOrder.toString() + " min"
@@ -82,31 +82,29 @@ function updateToogView(){
         itemContainer.append(itemNamePrice);
         itemContainer.append(itemAmountButtons);
 
-        let orderItemsList = document.createElement('ul');
-        orderItemsList.setAttribute('id','order-items-list-'+orderInfo.timestamp)
-        orderItemsList.setAttribute("class","order-items-list closed")
+        let dropDownAndInfoDiv = document.createElement('div')
+        dropDownAndInfoDiv.setAttribute("class", "order-items-list")
 
-        listItem.append(itemContainer,orderItemsList);
+        let dropDownButton = document.createElement('span');
+        dropDownButton.setAttribute('class', 'mdc-icon-button material-icons');
+        dropDownButton.setAttribute('id', 'dropDown-button-' + orderInfo.timestamp);
+        dropDownButton.onclick = function () {
+            toggleOrderView(currentOrder);
+        };
+        dropDownButton.append(document.createTextNode('arrow_drop_down'));
+        dropDownButton.setAttribute('style','transform: rotate(180deg)')
 
-        list.append(listItem);
 
-    }
+        dropDownAndInfoDiv.append(dropDownButton)
 
-    $('#main').empty()
-    $('#main').append(list);
+        let orderInfoAndList = document.createElement('div')
+        orderInfoAndList.setAttribute('class','orderInfo-and-list closed')
+        orderInfoAndList.setAttribute('id','orderInfo-and-list-'+orderInfo.timestamp)
 
-}
-
-function toggleOrderView(order){
-    let orderInfo = order[order.length -1];
-    let orderItemsList = $('#order-items-list-'+orderInfo.timestamp)
-    if(orderItemsList.attr("class")==="order-items-list closed"){
-        console.log('adding items form list of order with timestamp: '+ orderInfo.timestamp)
-        orderItemsList.empty();
         if(!(orderInfo.remark === "")) {
             let remark = document.createElement('p')
             remark.append(document.createTextNode("Opmerking: " + orderInfo.remark))
-            orderItemsList.append(remark)
+            orderInfoAndList.append(remark)
         }
         let paymentStatus = document.createElement('h3')
         paymentStatus.setAttribute('id', 'paymentStatus-' + orderInfo.timestamp)
@@ -117,20 +115,23 @@ function toggleOrderView(order){
             paymentAmount.append(document.createTextNode("Totaal: €"+orderInfo.amount))
             paymentStatusText = "Betaling: cash"
             paymentStatus.append(document.createTextNode(paymentStatusText));
-            orderItemsList.append(paymentAmount, paymentStatus);
+            orderInfoAndList.append(paymentAmount, paymentStatus);
         }
         else {
             paymentStatusText = translatePaymentStatus(orderInfo.paymentStatus)
             paymentStatus.append(document.createTextNode(paymentStatusText));
-            orderItemsList.append(paymentStatus);
+            orderInfoAndList.append(paymentStatus);
         }
 
-        for(let orderItemIndex in order){
-            if(orderItemIndex === (order.length - 1).toString()) break;
+        let orderItemsList = document.createElement('ul');
+        orderItemsList.setAttribute('id','order-items-list-'+orderInfo.timestamp)
+        orderItemsList.setAttribute("class","order-items-list closed")
 
-            let orderItem = order[orderItemIndex];
+        for(let orderItemIndex in currentOrder){
+            if(orderItemIndex === (currentOrder.length - 1).toString()) break;
+
+            let orderItem = currentOrder[orderItemIndex];
             let li = document.createElement('li')
-
 
             let itemContainer = document.createElement('div');
             itemContainer.setAttribute('class', "item-container");
@@ -162,13 +163,40 @@ function toggleOrderView(order){
 
             li.append(itemContainer);
 
-            $('#order-items-list-'+orderInfo.timestamp).append(li)
-            $('#order-items-list-'+orderInfo.timestamp).attr('class','order-items-list opened')
+            orderItemsList.append(li)
+            orderItemsList.setAttribute('class','order-items-list closed')
         }
+
+        orderInfoAndList.style.display='none'
+        orderInfoAndList.append(orderItemsList)
+
+        dropDownAndInfoDiv.append(orderInfoAndList)
+        listItem.append(itemContainer,dropDownAndInfoDiv);
+
+        list.append(listItem);
+
+    }
+
+    $('#main').empty()
+    $('#main').append(list);
+
+}
+
+function toggleOrderView(order){
+    let orderInfo = order[order.length -1];
+    let orderInfoAndItemsList = document.getElementById('orderInfo-and-list-'+orderInfo.timestamp)
+    if(orderInfoAndItemsList.getAttribute("class")==="orderInfo-and-list closed"){
+        console.log('adding items form list of order with timestamp: '+ orderInfo.timestamp)
+        orderInfoAndItemsList.style.display='block'
+        let dropdownButton = document.getElementById('dropDown-button-' + orderInfo.timestamp)
+        dropdownButton.setAttribute('style','transform: rotate(0deg)')
+        orderInfoAndItemsList.setAttribute('class','orderInfo-and-list opened')
     }else{
         console.log('removing items form list of order with timestamp: '+ orderInfo.timestamp)
-        $('#order-items-list-'+orderInfo.timestamp).empty();
-        $('#order-items-list-'+orderInfo.timestamp).attr('class','order-items-list closed')
+        let dropdownButton = document.getElementById('dropDown-button-' + orderInfo.timestamp)
+        dropdownButton.setAttribute('style','transform: rotate(180deg)')
+        orderInfoAndItemsList.style.display='none'
+        orderInfoAndItemsList.setAttribute('class','orderInfo-and-list closed')
     }
 }
 
