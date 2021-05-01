@@ -88,7 +88,7 @@ function updateToogView(){
         let dropDownButton = document.createElement('span');
         dropDownButton.setAttribute('class', 'mdc-icon-button material-icons');
         dropDownButton.setAttribute('id', 'dropDown-button-' + orderInfo.timestamp);
-        dropDownButton.setAttribute('style','transform: rotate(0deg)')
+        dropDownButton.setAttribute('style','transform: rotate(180deg)')
         dropDownButton.onclick = function () {
             toggleOrderView(currentOrder);
         };
