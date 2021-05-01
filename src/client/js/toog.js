@@ -88,6 +88,7 @@ function updateToogView(){
         let dropDownButton = document.createElement('span');
         dropDownButton.setAttribute('class', 'mdc-icon-button material-icons');
         dropDownButton.setAttribute('id', 'dropDown-button-' + orderInfo.timestamp);
+        dropDownButton.setAttribute('style','transform: rotate(0deg)')
         dropDownButton.onclick = function () {
             toggleOrderView(currentOrder);
         };
@@ -189,12 +190,12 @@ function toggleOrderView(order){
         console.log('adding items form list of order with timestamp: '+ orderInfo.timestamp)
         orderInfoAndItemsList.style.display='block'
         let dropdownButton = document.getElementById('dropDown-button-' + orderInfo.timestamp)
-        dropdownButton.setAttribute('style','transform: rotate(0deg)')
+        dropdownButton.setAttribute('style','transform: rotate(180deg)')
         orderInfoAndItemsList.setAttribute('class','orderInfo-and-list opened')
     }else{
         console.log('removing items form list of order with timestamp: '+ orderInfo.timestamp)
         let dropdownButton = document.getElementById('dropDown-button-' + orderInfo.timestamp)
-        dropdownButton.setAttribute('style','transform: rotate(180deg)')
+        dropdownButton.setAttribute('style','transform: rotate(0deg)')
         orderInfoAndItemsList.style.display='none'
         orderInfoAndItemsList.setAttribute('class','orderInfo-and-list closed')
     }

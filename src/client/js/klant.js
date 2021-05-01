@@ -160,7 +160,7 @@ function toggleCategory(category){
         catList.style.display ='none'
         catList.setAttribute('class','item-list list-closed')
         let dropdownButton = document.getElementById('dropDown-button-' + category)
-        dropdownButton.setAttribute('style','transform: rotate(90deg)')
+        dropdownButton.setAttribute('style','transform: rotate(180deg)')
     }else{
         catList.style.display = "block"
         catList.setAttribute('class','item-list list-opened')
