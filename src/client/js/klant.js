@@ -46,6 +46,9 @@ function setPlaceOrderView() {
         itemName.setAttribute('class', "category-name");
         itemName.setAttribute('id', "category-" + category);
         itemName.append(document.createTextNode(category));
+        itemName.onclick = function () {
+            toggleCategory(category);
+        };
         itemNamePrice.append(itemName);
 
         let itemAmountButtons = document.createElement('div');
@@ -440,7 +443,7 @@ function payWithPayconiq(){
                 }
             })
         }else{
-            console.log('Something went wrong with placing the order');
+            console.error('Something went wrong with placing the order');
         }
     });
 
@@ -473,7 +476,7 @@ function payInCash(){
             console.log('Order placed successfully');
             orderReceivedView()
         }else{
-            console.log('Something went wrong with placing the order');
+            console.error('Something went wrong with placing the order');
         }
     });
 }
