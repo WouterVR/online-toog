@@ -57,6 +57,7 @@ function setPlaceOrderView() {
             toggleCategory(category);
         };
         dropDownButton.append(document.createTextNode('arrow_drop_down'));
+        dropDownButton.setAttribute('style','transform: rotate(180deg)')
         itemAmountButtons.append(dropDownButton);
         itemContainer.append(itemNamePrice);
         itemContainer.append(itemAmountButtons);
