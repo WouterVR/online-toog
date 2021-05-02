@@ -114,7 +114,7 @@ const server = http.createServer((req, res) => {
             }
             console.log('created the payment body: ' + JSON.stringify(payment))
             const userAction = async () => {
-                const response = await fetch('https://api.ext.payconiq.com/v3/payments/', {
+                const response = await fetch('https://api.payconiq.com/v3/payments/', {
                     method: 'POST',
                     body: JSON.stringify(payment),
                     headers: {
@@ -143,7 +143,7 @@ const server = http.createServer((req, res) => {
         let paymentReference = req.url.replace("/getPaymentStatus/",'');
         console.log('server is going to look for payconiq payment with reference: '+ paymentReference)
         const userAction = async () => {
-            const response = await fetch('https://api.ext.payconiq.com/v3/payments/'+paymentReference, {
+            const response = await fetch('https://api.payconiq.com/v3/payments/'+paymentReference, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ const server = http.createServer((req, res) => {
             let body = {
                 "paymentStatuses": [ "PENDING", "IDENTIFIED", "AUTHORIZED", "AUTHORIZATION_FAILED", "SUCCEEDED", "FAILED", "CANCELLED", "EXPIRED" ],
             }
-            const response = await fetch('https://api.ext.payconiq.com/v3/payments/search', {
+            const response = await fetch('https://api.payconiq.com/v3/payments/search', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
