@@ -6,7 +6,7 @@ function toogPageLoad(){
 
 setInterval(function (){
     getOrdersAndUpdatePaymentStatusAndTime();
-}, 30000)
+}, 3000)
 
 function updateToogView(){
     let list = document.createElement('ul');
@@ -296,6 +296,11 @@ function getOrdersAndUpdatePaymentStatusAndTime(){
             }
             console.log('Sorted orders: '+ sortedOrders)
             orders = sortedOrders
+            unfinishedOrders = []
+            for(let order in orders){
+                let currentOrder = orders[order]
+                if(!currentOrder[currentOrder.length-1].finished) unfinishedOrders.push(currentOrder)
+            }
             updateToogView()
         }else{
             console.log('Something went wrong with retrieving the orders');
