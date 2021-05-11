@@ -1,7 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="" />
+    <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/analytics-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/analytics-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/analytics/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/analytics/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/app-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/app-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/auth-interop-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/auth-interop-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/auth/node_modules/@firebase/auth-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/auth/node_modules/@firebase/auth-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/auth/node_modules/@firebase/util/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/auth/node_modules/@firebase/util/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/auth/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/auth/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/component/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/component/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/database-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/database-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/database/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/database/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/firestore-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/firestore-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/firestore/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/firestore/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/functions-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/functions-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/functions/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/installations-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/installations-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/installations/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/installations/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/logger/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/logger/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/messaging-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/messaging-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/messaging/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/messaging/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/performance-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/performance-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/performance/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/performance/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/polyfill/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/polyfill/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/remote-config-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/remote-config-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/remote-config/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/remote-config/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/storage-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/storage-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/storage/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/storage/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/util/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/util/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@firebase/webchannel-wrapper/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@firebase/webchannel-wrapper/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@grpc/grpc-js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@grpc/grpc-js/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@grpc/proto-loader/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@grpc/proto-loader/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/aspromise/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/aspromise/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/base64/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/base64/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/codegen/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/codegen/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/eventemitter/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/eventemitter/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/fetch/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/fetch/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/float/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/float/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/inquire/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/inquire/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/path/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/path/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/pool/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/pool/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@protobufjs/utf8/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@protobufjs/utf8/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/long/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@types/long/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@types/node/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@types/node/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/abort-controller/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/abort-controller/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/agent-base/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/agent-base/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/arrify/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/arrify/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/base64-js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/base64-js/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/bignumber.js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/bignumber.js/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/buffer-equal-constant-time/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/core-js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/core-js/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/debug/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/debug/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/dom-storage/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/dom-storage/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ecdsa-sig-formatter/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ecdsa-sig-formatter/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/event-target-shim/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/event-target-shim/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/extend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/extend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/fast-text-encoding/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/fast-text-encoding/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/faye-websocket/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/faye-websocket/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/firebase/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/firebase/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gaxios/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gaxios/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gcp-metadata/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gcp-metadata/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/google-auth-library/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/google-auth-library/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/google-p12-pem/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/google-p12-pem/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gtoken/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gtoken/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/http-parser-js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/http-parser-js/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/https-proxy-agent/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/https-proxy-agent/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/idb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/idb/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/is-stream/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/is-stream/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/json-bigint/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/json-bigint/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jwa/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/jwa/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jws/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/jws/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/lodash.camelcase/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/lodash.camelcase/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/long/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/long/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/lru-cache/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/lru-cache/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ms/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ms/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/node-fetch/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/node-fetch/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/node-forge/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/node-forge/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/promise-polyfill/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/promise-polyfill/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/protobufjs/node_modules/@types/node/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/protobufjs/node_modules/@types/node/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/protobufjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/protobufjs/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/safe-buffer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/safe-buffer/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/semver/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tslib/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/tslib/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/websocket-driver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/websocket-driver/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/websocket-extensions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/websocket-extensions/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/whatwg-fetch/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/whatwg-fetch/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/xmlhttprequest/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/xmlhttprequest/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/yallist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yallist/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +108,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -435,10 +526,29 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="payconiq small update + https update" />
     <MESSAGE value="back to http protocol without s, to much problems" />
     <MESSAGE value="removing key for https" />
     <MESSAGE value="changing last https problem" />
@@ -463,6 +573,8 @@
     <MESSAGE value="css update for paymentReturnPage.js" />
     <MESSAGE value="Style changes" />
     <MESSAGE value="minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
+    <MESSAGE value="update node modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="update node modules" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
