@@ -13,7 +13,6 @@ const klantHTML = fs.readFileSync('src/client/klant/klant.html');
 const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html');
 const orderReceived = fs.readFileSync('src/client/klant/orderReceived.html');
 const payconisPaymentStatus = fs.readFileSync('src/client/klant/payconiqPaymentStatus.html');
-const payconisPaymentStatusERROR = fs.readFileSync('src/client/klant/payconiqPaymentStatusError.html');
 const toogHtml = fs.readFileSync('src/client/toog/toog.html');
 const klantJS = fs.readFileSync('src/client/js/klant.js');
 const toogJs = fs.readFileSync('src/client/js/toog.js');

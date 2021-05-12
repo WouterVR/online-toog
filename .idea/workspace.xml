@@ -4,6 +4,8 @@
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/js/toog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/toog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/toog/toog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/toog/toog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +96,7 @@
       <workItem from="1619820465003" duration="7447000" />
       <workItem from="1619868205571" duration="1297000" />
       <workItem from="1620729391647" duration="674000" />
-      <workItem from="1620833234986" duration="2852000" />
+      <workItem from="1620833234986" duration="4798000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>
@@ -432,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620729408297</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="bugs fixed">
+      <created>1620836385461</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1620836385461</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -471,7 +480,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removing key for https" />
     <MESSAGE value="changing last https problem" />
     <MESSAGE value="Payconiq client site volledig af normaal gezien" />
     <MESSAGE value="Toog view completed + improvements" />
@@ -496,7 +504,8 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="update node modules" />
     <MESSAGE value="update packages" />
-    <option name="LAST_COMMIT_MESSAGE" value="update packages" />
+    <MESSAGE value="bugs fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugs fixed" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
