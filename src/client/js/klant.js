@@ -362,14 +362,16 @@ function continueButton(){
     for (let category in menu) {
         let currentCategory = menu[category];
         for (let menuItemId in currentCategory) {
-            let amountOfItemText = document.getElementById('amountSelected-' + currentCategory[menuItemId].name).childNodes[0].nodeValue;
-            if (amountOfItemText > 0) {
-                let orderItem = {
-                    name: currentCategory[menuItemId].name,
-                    amount: amountOfItemText,
-                    pricePerItem: currentCategory[menuItemId].price
+            if (currentCategory[menuItemId].availability) {
+                let amountOfItemText = document.getElementById('amountSelected-' + currentCategory[menuItemId].name).childNodes[0].nodeValue;
+                if (amountOfItemText > 0) {
+                    let orderItem = {
+                        name: currentCategory[menuItemId].name,
+                        amount: amountOfItemText,
+                        pricePerItem: currentCategory[menuItemId].price
+                    }
+                    order.push(orderItem);
                 }
-                order.push(orderItem);
             }
         }
     }

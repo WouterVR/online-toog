@@ -125,6 +125,8 @@ function setEditMenuView() {
             list.append(listItem);
         }
 
+        //TODO add an empty menu item for a new item
+
         let listItem = document.createElement('li');
         let form = document.createElement('form');
         form.setAttribute('class', 'form-tableNumber-remark');
@@ -154,7 +156,6 @@ function setEditMenuView() {
 
         form.append(newItemNameLabel, newItemName, priceLabel, price);
         listItem.append(form)
-        //add an empty menu item for a new item
         //list.append(listItem)
 
         categoryDiv.append(list)

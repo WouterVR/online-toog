@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/client/js/menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/menu/menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/menu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,14 +94,7 @@
       <workItem from="1619868205571" duration="1297000" />
       <workItem from="1620729391647" duration="674000" />
       <workItem from="1620833234986" duration="4798000" />
-      <workItem from="1620853951393" duration="6683000" />
-    </task>
-    <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
-      <created>1618698976408</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1618698976408</updated>
+      <workItem from="1620853951393" duration="6965000" />
     </task>
     <task id="LOCAL-00002" summary="bit of progress in design of klant">
       <created>1618701520808</created>
@@ -444,7 +432,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620836385461</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="added menu change possibility (remove not working yet">
+      <created>1620861097867</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1620861097871</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +478,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changing last https problem" />
     <MESSAGE value="Payconiq client site volledig af normaal gezien" />
     <MESSAGE value="Toog view completed + improvements" />
     <MESSAGE value="Almost fully complete" />
@@ -508,7 +502,8 @@
     <MESSAGE value="update node modules" />
     <MESSAGE value="update packages" />
     <MESSAGE value="bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugs fixed" />
+    <MESSAGE value="added menu change possibility (remove not working yet" />
+    <option name="LAST_COMMIT_MESSAGE" value="added menu change possibility (remove not working yet" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
