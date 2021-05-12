@@ -1,11 +1,30 @@
 let orders
 let unfinishedOrders
-function toogPageLoad(){
+let toggledOrdersTimestamps
+
+function toogPageLoad() {
+    let main = $('#main')
+    main.empty()
+    let loader = document.createElement('div')
+    loader.setAttribute('class', 'loader')
+    main.append(loader)
     getOrdersAndUpdateToogView();
 }
 
-setInterval(function (){
-    getOrdersAndUpdatePaymentStatusAndTime();
+setInterval(function () {
+    toggledOrdersTimestamps = []
+
+    for (let orderIndex in unfinishedOrders) {
+        let currentOrder = unfinishedOrders[orderIndex]
+        let orderInfo = currentOrder[currentOrder.length - 1]
+        let list = document.getElementById('orderInfo-and-list-' + orderInfo.timestamp)
+        if (list.getAttribute('class') === 'orderInfo-and-list opened') {
+            toggledOrdersTimestamps.push(orderInfo.timestamp)
+            console.log("order nr " + orderInfo.timestamp + " is toggled")
+        }
+    }
+    console.log('togglesOrders: ' + JSON.stringify(toggledOrdersTimestamps))
+    getOrdersAndUpdateToogView();
 }, 3000)
 
 function updateToogView(){
@@ -163,14 +182,23 @@ function updateToogView(){
             li.append(itemContainer);
 
             orderItemsList.append(li)
-            orderItemsList.setAttribute('class','order-items-list closed')
+            orderItemsList.setAttribute('class', 'order-items-list closed')
         }
 
-        orderInfoAndList.style.display='none'
+        if (toggledOrdersTimestamps === undefined || !toggledOrdersTimestamps.includes(orderInfo.timestamp)) {
+            orderInfoAndList.style.display = 'none'
+            console.log('order' + orderInfo.timestamp + ' is not toggled')
+        } else {
+            let dropdownButton = document.getElementById('dropDown-button-' + orderInfo.timestamp)
+            dropdownButton.setAttribute('style', 'transform: rotate(180deg)')
+            orderInfoAndList.setAttribute('class', 'orderInfo-and-list opened')
+            console.log('order' + orderInfo.timestamp + ' is toggled')
+            orderInfoAndList.style.display = 'block'
+        }
         orderInfoAndList.append(orderItemsList)
 
         dropDownAndInfoDiv.append(orderInfoAndList)
-        listItem.append(itemContainer,dropDownAndInfoDiv);
+        listItem.append(itemContainer, dropDownAndInfoDiv);
 
         list.append(listItem);
 
@@ -200,11 +228,6 @@ function toggleOrderView(order){
 }
 
 function getOrdersAndUpdateToogView(){
-    let main = $('#main')
-    main.empty()
-    let loader = document.createElement('div')
-    loader.setAttribute('class','loader')
-    main.append(loader)
     let url = '/getOrders'
     $.post(url, "getOrders", function (response, status){
         if(status === "success"){
@@ -278,33 +301,5 @@ function translatePaymentStatus(paymentStatus){
         default:
             return "Betaling: Geen Gegevens"
     }
-}
-
-function getOrdersAndUpdatePaymentStatusAndTime(){
-    let url = '/getOrders'
-    $.post(url, "getOrders", function (response, status){
-        if(status === "success"){
-            orders = JSON.parse(response);
-            console.log('Received orders: '+ JSON.stringify(orders))
-            //Sorting from old to new
-            let timestamps = Object.keys(orders)
-            timestamps.sort(function (a,b) {return b-a})
-            let sortedOrders =[]
-            let initialLength = timestamps.length
-            for(let i = 0; i<initialLength; i++){
-                sortedOrders.push(orders[timestamps.pop()])
-            }
-            console.log('Sorted orders: '+ sortedOrders)
-            orders = sortedOrders
-            unfinishedOrders = []
-            for(let order in orders){
-                let currentOrder = orders[order]
-                if(!currentOrder[currentOrder.length-1].finished) unfinishedOrders.push(currentOrder)
-            }
-            updateToogView()
-        }else{
-            console.log('Something went wrong with retrieving the orders');
-        }
-    });
 }
 

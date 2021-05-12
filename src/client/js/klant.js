@@ -254,11 +254,16 @@ function setOrderDetailsView(){
 
     let button2 = document.createElement('button');
     button2.setAttribute('class', 'mdc-button mdc-button--raised');
-    button2.onclick = function () {payButton();};
+    button2.onclick = function () {
+        payButton();
+    };
     button2.append(document.createTextNode('BETALEN'));
 
     $('#footer').empty();
-    $('#footer').append(button1, spaceBetweenDiv,button2)
+    $('#footer').append(button1, spaceBetweenDiv, button2)
+
+
+    $('html,body').animate({scrollTop: 0}, 1);
 }
 
 function setPaymentMethodView(){
