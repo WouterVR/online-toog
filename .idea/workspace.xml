@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/client/js/menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/menu/menu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/js/toog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/toog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/toog/toog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/toog/toog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -97,6 +99,7 @@
       <workItem from="1619868205571" duration="1297000" />
       <workItem from="1620729391647" duration="674000" />
       <workItem from="1620833234986" duration="4798000" />
+      <workItem from="1620853951393" duration="6683000" />
     </task>
     <task id="LOCAL-00001" summary="Project startup and frontend start design klant">
       <created>1618698976408</created>

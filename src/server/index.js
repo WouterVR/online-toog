@@ -10,12 +10,14 @@ const port = process.env.PORT || 3001;
 // use createReadStream instead to save memory
 const fs = require('fs');
 const klantHTML = fs.readFileSync('src/client/klant/klant.html');
+const menuHtml = fs.readFileSync('src/client/menu/menu.html');
 const orderDetailsHTML = fs.readFileSync('src/client/klant/orderDetails.html');
 const orderReceived = fs.readFileSync('src/client/klant/orderReceived.html');
 const payconisPaymentStatus = fs.readFileSync('src/client/klant/payconiqPaymentStatus.html');
 const toogHtml = fs.readFileSync('src/client/toog/toog.html');
 const klantJS = fs.readFileSync('src/client/js/klant.js');
 const toogJs = fs.readFileSync('src/client/js/toog.js');
+const menuJs = fs.readFileSync('src/client/js/menu.js');
 const paymentReturnPage = fs.readFileSync('src/client/js/paymentReturnPage.js');
 const style = fs.readFileSync('src/client/css/style.css');
 const toogStyle = fs.readFileSync('src/client/css/toog.css');
@@ -32,9 +34,19 @@ const server = http.createServer((req, res) => {
         res.write(klantHTML);
         res.end();
     }
+    if (req.url === "/menu") {
+        res.setHeader("Content-Type", "text/html");
+        res.write(menuHtml);
+        res.end();
+    }
     if (req.url === "/js/klant.js") {
         res.setHeader("Content-Type", "text/javascript");
         res.write(klantJS);
+        res.end();
+    }
+    if (req.url === "/js/menu.js") {
+        res.setHeader("Content-Type", "text/javascript");
+        res.write(menuJs);
         res.end();
     }
     if (req.url === "/css/style.css") {
@@ -227,14 +239,23 @@ const server = http.createServer((req, res) => {
             addOrderToOrderList(concernedOrder)
         })
     }
-    if(req.url.includes("orderFinished")){
-        let orderTimestamp = req.url.replace('/orderFinished/','')
-        let order =orders[orderTimestamp]
+    if (req.url.includes("orderFinished")) {
+        let orderTimestamp = req.url.replace('/orderFinished/', '')
+        let order = orders[orderTimestamp]
         let orderDetails = order.pop()
         let newOrderDetails = orderDetails
         newOrderDetails.finished = true
         order.push(newOrderDetails)
         addOrderToOrderList(order)
+        res.end()
+    }
+    if (req.url.includes("toggle")) {
+        let menuItemName = req.url.replace('/toggle/', '')
+        console.log("toggling " + menuItemName)
+        let menuItemNameWithSpaces = menuItemName.replace('%20', ' ')
+        console.log("toggling " + menuItemNameWithSpaces)
+        toggleAvailability(menuItemNameWithSpaces);
+        res.write('changed')
         res.end()
     }
 })
@@ -288,7 +309,7 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
     console.log("The read failed: " + errorObject);
 });
 
-fillMenu()
+//fillMenu()
 function fillMenu(){
     let bieren = []
     //fill bieren
@@ -327,19 +348,34 @@ function fillMenu(){
     menu = {
         "Bieren": bieren,
         "Fris": fris,
-        "Snacks":snacks
+        "Snacks": snacks
     }
-    realtimeDatabase.ref("menu").set(menu).then(r  => console.log('data successfully set'));
+    realtimeDatabase.ref("menu").set(menu);
 
 }
 
 
-function addOrderToOrderList(order){
-    let orderTimestamp = order[order.length-1].timestamp
-    realtimeDatabase.ref("orders/" + orderTimestamp).set(order).then(r  => console.log('data successfully set'));
+function addOrderToOrderList(order) {
+    let orderTimestamp = order[order.length - 1].timestamp
+    realtimeDatabase.ref("orders/" + orderTimestamp).set(order)
 }
 
 //// Payconiq by Bancontact credentials ////
 const merchantId = '6086a1bd7e59ce00066de954'
-const paymentProfileId ='6086a2077e59ce00066de955'
+const paymentProfileId = '6086a2077e59ce00066de955'
 const APIkey = "5c20c8f4-cbd3-4f91-ae1a-9bfc081dfc84"
+
+function toggleAvailability(menuItemName) {
+    for (let cat in menu) {
+        let currentCategory = menu[cat]
+        for (let menuItemIndex in currentCategory) {
+            let currentMenuItem = currentCategory[menuItemIndex]
+            if (currentMenuItem.name === menuItemName) {
+                console.log('about the change the staus of ' + menuItemName + ', now is: ' + currentMenuItem.availability)
+                currentMenuItem.availability = !currentMenuItem.availability
+                console.log('new availability: ' + currentMenuItem.availability)
+            }
+        }
+    }
+    realtimeDatabase.ref("menu").set(menu);
+}
