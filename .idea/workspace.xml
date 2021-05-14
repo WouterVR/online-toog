@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/environment-var.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment-var.env" beforeDir="false" afterPath="$PROJECT_DIR$/environment-var.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,14 +95,7 @@
       <workItem from="1620729391647" duration="674000" />
       <workItem from="1620833234986" duration="4798000" />
       <workItem from="1620853951393" duration="6965000" />
-      <workItem from="1621000030055" duration="325000" />
-    </task>
-    <task id="LOCAL-00002" summary="bit of progress in design of klant">
-      <created>1618701520808</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1618701520808</updated>
+      <workItem from="1621000030055" duration="1063000" />
     </task>
     <task id="LOCAL-00003" summary="design of first klant page done">
       <created>1618863100923</created>
@@ -441,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620861097871</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="payconiq API key update">
+      <created>1621000486333</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1621000486334</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -480,7 +479,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Payconiq client site volledig af normaal gezien" />
     <MESSAGE value="Toog view completed + improvements" />
     <MESSAGE value="Almost fully complete" />
     <MESSAGE value="Almost fully finished" />
@@ -505,7 +503,8 @@
     <MESSAGE value="update packages" />
     <MESSAGE value="bugs fixed" />
     <MESSAGE value="added menu change possibility (remove not working yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="added menu change possibility (remove not working yet" />
+    <MESSAGE value="payconiq API key update" />
+    <option name="LAST_COMMIT_MESSAGE" value="payconiq API key update" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
