@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73ec691e-a5b6-4f13-958d-d6d1e0dd3dcc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/client/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/js/menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/environment-var.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +96,7 @@
       <workItem from="1620729391647" duration="674000" />
       <workItem from="1620833234986" duration="4798000" />
       <workItem from="1620853951393" duration="6965000" />
+      <workItem from="1621000030055" duration="325000" />
     </task>
     <task id="LOCAL-00002" summary="bit of progress in design of klant">
       <created>1618701520808</created>

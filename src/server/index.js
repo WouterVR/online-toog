@@ -1,7 +1,7 @@
 const http = require('http')
-const https = require('https')
+const env = require('dotenv')
+env.config()
 const fetch = require("node-fetch");
-let path = require('path')
 let orders = [];
 
 //const port = process.env.PORT //not working?
@@ -361,9 +361,9 @@ function addOrderToOrderList(order) {
 }
 
 //// Payconiq by Bancontact credentials ////
-const merchantId = '6086a1bd7e59ce00066de954'
-const paymentProfileId = '6086a2077e59ce00066de955'
-const APIkey = "5c20c8f4-cbd3-4f91-ae1a-9bfc081dfc84"
+const merchantId = process.env.MARCHANT_ID
+const paymentProfileId = process.env.PAYMENT_ID
+const APIkey = process.env.API_KEY
 
 function toggleAvailability(menuItemName) {
     for (let cat in menu) {

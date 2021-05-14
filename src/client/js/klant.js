@@ -404,8 +404,6 @@ function backButton(){
 }
 
 function payWithPayconiq(){
-    alert("Payconiq wordt momenteel nog niet ondersteund, maar volgende week wel!")
-   return;
 	let main = $('#main')
     main.empty()
     let loader = document.createElement('div')
