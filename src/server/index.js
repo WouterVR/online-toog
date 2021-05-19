@@ -313,22 +313,26 @@ realtimeDatabase.ref("menu").on("value", function(snapshot) {
 function fillMenu(){
     let bieren = []
     //fill bieren
-    let bier0 = { availability: true, name: 'Primus', price: 1 }
-    let bier1 = { availability: true, name: 'Kasteelbier Rouge', price: 2 }
-    let bier2= { availability: true, name: 'Keizer Karel', price: 2 }
-    let bier3= { availability: true, name: 'Duvel', price: 2 }
-    let bier4= { availability: true, name: 'Grimbergen Blond', price: 2 }
-    let bier5=  { availability: true, name: 'Tongerlo blond', price: 2 }
-    let bier6 = { availability: true, name: 'Karmeliet', price: 2 }
+    let bier0 = {availability: true, name: 'Primus', price: 1}
+    let bier1 = {availability: true, name: 'Kasteelbier Rouge', price: 2}
+    let bier2 = {availability: true, name: 'Keizer Karel', price: 2}
+    let bier3 = {availability: true, name: 'Duvel', price: 2}
+    let bier4 = {availability: true, name: 'Grimbergen Blond', price: 2}
+    let bier5 = {availability: true, name: 'Tongerlo blond', price: 2}
+    let bier10 = {availability: true, name: 'Omer', price: 2}
+    let bier9 = {availability: true, name: 'Mystic Kriek', price: 2}
+    let bier8 = {availability: true, name: 'Strongbow Red Berries', price: 2}
+    let bier7 = {availability: true, name: 'Strongbow Gold Apple', price: 2}
+    let bier6 = {availability: true, name: 'Karmeliet', price: 2}
 
-    bieren.push(bier0,bier5, bier6, bier3, bier1, bier4,bier2);
+    bieren.push(bier0, bier5, bier6, bier3, bier1, bier4, bier10, bier2, bier7, bier8, bier9);
 
-    let fris0 = { availability: true, name: 'Water plat', price: 0 }
-    let fris1 = { availability: true, name: 'Water bruis', price: 1 }
-    let fris2 ={ availability: true, name: 'Fanta', price: 1 }
-    let fris3 = { availability: true, name: 'Cola', price: 1 }
-    let fris4 = { availability: true, name: 'Pepsi max', price: 1 }
-    let fris5 = { availability: true, name: 'IceTea', price: 1 }
+    let fris0 = {availability: true, name: 'Water plat', price: 0}
+    let fris1 = {availability: true, name: 'Water bruis', price: 1}
+    let fris2 = {availability: true, name: 'Fanta', price: 1}
+    let fris3 = {availability: true, name: 'Cola', price: 1}
+    let fris4 = {availability: true, name: 'Pepsi max', price: 1}
+    let fris5 = {availability: true, name: 'IceTea', price: 1}
     let fris6 = { availability: true, name: 'IceTea Green', price: 1 }
 
     let fris = []
