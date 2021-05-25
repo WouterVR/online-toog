@@ -41,7 +41,17 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-.form-tableNumber-remark{
+input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-tableNumber-remark {
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -49,7 +59,7 @@ input[type=text], select {
     max-height: 110px;
 }
 
-.item-list{
+.item-list {
     list-style-type: none;
     padding: 0;
     margin-top: 0;
@@ -140,7 +150,12 @@ p {
     text-decoration: none;
     border: 0;
 }
-.mdc-button--raised .mdc-button--outlined{
+
+.addMenuItemButton {
+    margin: 20px;
+}
+
+.mdc-button--outlined {
     background-color: black;
 }
 

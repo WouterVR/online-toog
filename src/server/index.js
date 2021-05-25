@@ -258,6 +258,29 @@ const server = http.createServer((req, res) => {
         res.write('changed')
         res.end()
     }
+    if (req.url === "/addMenuItem") {
+        req.on('data', function (data) {
+            let jsonData = JSON.parse(data)
+            let category = jsonData.category
+            let newMenuItem = {
+                availability: true,
+                name: jsonData.name,
+                price: jsonData.price
+            }
+            //TODO create logic
+            menu[category].push(newMenuItem)
+            realtimeDatabase.ref("menu").set(menu).then(
+            );
+            res.end()
+        })
+    }
+    if (req.url.includes("removeMenuItem")) {
+        let menuItemName = req.url.replace('/removeMenuItem/', '')
+        let menuItemNameWithSpaces = menuItemName.replace('%20', ' ')
+        removeItemFromMenu(menuItemNameWithSpaces);
+        res.write("removed")
+        res.end()
+    }
 })
 
 server.listen(port, () => {
@@ -378,6 +401,20 @@ function toggleAvailability(menuItemName) {
                 console.log('about the change the staus of ' + menuItemName + ', now is: ' + currentMenuItem.availability)
                 currentMenuItem.availability = !currentMenuItem.availability
                 console.log('new availability: ' + currentMenuItem.availability)
+            }
+        }
+    }
+    realtimeDatabase.ref("menu").set(menu);
+}
+
+function removeItemFromMenu(menuItemName) {
+    for (let cat in menu) {
+        let currentCategory = menu[cat]
+        for (let menuItemIndex in currentCategory) {
+            let currentMenuItem = currentCategory[menuItemIndex]
+            if (currentMenuItem.name === menuItemName) {
+                console.log('removing: ' + menuItemName);
+                currentCategory.splice(currentCategory.indexOf(currentMenuItem), 1)
             }
         }
     }

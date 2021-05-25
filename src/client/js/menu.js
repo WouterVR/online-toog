@@ -1,3 +1,5 @@
+//let menu = []
+
 function menuPageLoad() {
     console.log('menuPage loaded')
     fillMenuAndView()
@@ -112,12 +114,13 @@ function setEditMenuView() {
             toggleSwitchLabel.setAttribute('for', 'toggle-switch-' + currentCategory[menuItem].name)
             toggleSwitchLabel.append(document.createTextNode("off/on"))
 
-            let addButton = document.createElement('div')
-            addButton.setAttribute('class', 'mdc-icon-button material-icons');
-            addButton.setAttribute('id', 'add-button-' + currentCategory[menuItem].name);
-            addButton.append(document.createTextNode('add_circle'));
-            addButton.setAttribute('style', 'transform: rotate(45deg)')
-            itemAmountButtons.append(toggleSwitchDiv, addButton);
+            let removeButton = document.createElement('div')
+            removeButton.setAttribute('class', 'mdc-icon-button material-icons');
+            removeButton.setAttribute('id', 'add-button-' + currentCategory[menuItem].name);
+            removeButton.append(document.createTextNode('add_circle'));
+            removeButton.setAttribute('style', 'transform: rotate(45deg)')
+
+            itemAmountButtons.append(toggleSwitchDiv, removeButton);
             itemContainer.append(itemNamePrice);
             itemContainer.append(itemAmountButtons);
 
@@ -136,27 +139,26 @@ function setEditMenuView() {
         let newItemName = document.createElement('input');
         newItemName.setAttribute('type', 'text');
         newItemName.setAttribute('placeholder', 'Primus');
-        newItemName.setAttribute('id', 'newItemName-' + category);
+        newItemName.setAttribute('id', 'new-item-name-' + category);
         let priceLabel = document.createElement('label');
-        priceLabel.setAttribute('for', 'newItemName');
+        priceLabel.setAttribute('for', 'item-price');
         priceLabel.append(document.createTextNode('Prijs van het item'));
         let price = document.createElement('input');
         price.setAttribute('type', 'number');
-        price.setAttribute('id', 'remark');
+        price.setAttribute('id', 'new-item-price-' + category);
         price.setAttribute('placeholder', 'Prijs');
 
-
-        let addButton = document.createElement('div')
-        addButton.setAttribute('class', 'mdc-icon-button material-icons');
+        let addButton = document.createElement('button')
+        addButton.setAttribute('class', 'mdc-button mdc-button--raised addMenuItemButton');
         addButton.setAttribute('id', 'add-button-' + category);
+        addButton.append(document.createTextNode('TOEVOEGEN'));
         addButton.onclick = function () {
-            console.log('add ' + category)
+            addItemToMenu(category);
         }
-        addButton.append(document.createTextNode('add_circle'));
 
         form.append(newItemNameLabel, newItemName, priceLabel, price);
-        listItem.append(form)
-        //list.append(listItem)
+        listItem.append(form, addButton)
+        list.append(listItem)
 
         categoryDiv.append(list)
         $('#main').append(categoryDiv);
@@ -175,8 +177,54 @@ function setEditMenuView() {
 }
 
 function removeMenuItem(menuitemName) {
-    console.log('remove ' + menuitemName)
+    let confirmation = confirm("Weet je zeker dat je " + menuitemName + " wilt verwijderen?")
+    if (confirmation) {
+        console.log('remove ' + menuitemName + " CONFIRMED")
+        let url = "/removeMenuItem/" + menuitemName;
+        $.post(url, menuitemName, function () {
+            fillMenuAndView();
+            if (status === "success") {
+                console.log('succesfully removed the new menuItem')
+            } else {
+                console.error("Something went wrong with removing the new item to the menu");
+            }
+        })
+    } else {
+        console.log('remove ' + menuitemName + " CANCELED")
+    }
 }
+
+function addItemToMenu(category) {
+    let newMenuItemName = $('#new-item-name-' + category).val()
+    let newMenuItemPrice = $('#new-item-price-' + category).val()
+    if (newMenuItemPrice === undefined || newMenuItemPrice < 0 || newMenuItemName === undefined || newMenuItemName === "") {
+        alert("Gelieve een naam en prijs in te vullen voor het nieuwe item")
+        return;
+    } else if (newMenuItemPrice === "") {
+        let confirmation = confirm("Weet je zeker dat je nieuwe item €0 zal kosten?")
+        if (confirmation) {
+            newMenuItemPrice = 0
+        } else {
+            return;
+        }
+    }
+    let url = "/addMenuItem";
+    let data = {
+        category: category,
+        name: newMenuItemName,
+        price: newMenuItemPrice
+    }
+    $.post(url, JSON.stringify(data), function () {
+        fillMenuAndView();
+        if (status === "success") {
+            console.log('succesfully added the new menuItem')
+        } else {
+            console.error("Something went wrong with adding the new item to the menu");
+        }
+    })
+
+}
+
 
 function toggleAvailability(menuItemName) {
     let toggleSwitch = document.getElementById('toggle-switch-' + menuItemName)
