@@ -257,7 +257,11 @@ function setOrderDetailsView(){
     button2.onclick = function () {
         payButton();
     };
-    button2.append(document.createTextNode('BETALEN'));
+    if (totalPrice < 10) {
+        button2.append(document.createTextNode('BESTELLING PLAATSEN'));
+    } else {
+        button2.append(document.createTextNode('BETALEN'));
+    }
 
     $('#footer').empty();
     $('#footer').append(button1, spaceBetweenDiv, button2)
@@ -382,15 +386,19 @@ function continueButton(){
     setOrderDetailsView();
 }
 
-function payButton(){
+function payButton() {
     tableNumber = $('#tableNumber').val();
-    if(tableNumber<= 0 || tableNumber >=20){
+    if (tableNumber <= 0 || tableNumber >= 20) {
         alert('Gelieve een tafelnummer tussen 1 en 20 in te vulen.');
         return;
     }
     remark = $('#remark').val();
-    console.log('table number: '+ tableNumber.toString() + ' and remark: '+remark);
-    setPaymentMethodView();
+    console.log('table number: ' + tableNumber.toString() + ' and remark: ' + remark);
+    if (totalPrice >= 10) {
+        setPaymentMethodView();
+    } else {
+        payInCash();
+    }
 }
 
 function backButton(){
